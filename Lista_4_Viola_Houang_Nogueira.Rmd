@@ -1,0 +1,142 @@
+---
+title: "Lista_4_Viola_Houang_Nogueira"
+author: "André Viola, André P. Houang, Ary J.A. Nogueira"
+date: "5/12/2021"
+output: 
+  html_document :
+    df_print: paged 
+---
+
+```{r, echo=FALSE}
+#limpando o documento html final
+knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
+
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(ggplot2)
+library(knitr)
+```
+
+```{r}
+#abrindo o banco de dados no R
+Banco_Lab4 <- read_excel("Banco_Lab 04_novo.xlsx")
+```
+
+```{r}
+#calculando estatisticas descritivas
+#calculo media 
+
+Banco_Lab4 %>% 
+  summarize(enep_media=mean(enep, na.rm=T),
+            enpp_media=mean(enpp, na.rm=T),
+            seats_media=mean(seats, na.rm=T)) %>%
+  kable(col.names = c("Média Número Efetivo de Partidos Eleitorais",
+                      "Média Número Efetivo de Partidos no Parlamento",
+                      "Média Número de Assentos"))
+
+#calculo mediana
+
+Banco_Lab4 %>%
+  summarize(enep_mediana=median(enep,na.rm=T),
+            enpp_mediana=median(enpp, na.rm=T),
+            seats_mediana=median(seats, na.rm=T))%>%
+  kable(col.names = c("Mediana Número Efetivo de Partidos Eleitorais",
+                      "Mediana Número Efetivo de Partidos no Parlamento",
+                      "Mediana Número de Assentos"))
+
+#calculo desvio padrão  
+
+Banco_Lab4 %>%
+  summarize(enep_sd=sd(enep,na.rm=T),
+            enpp_sd=sd(enpp, na.rm=T),
+            seats_sd=sd(seats, na.rm=T))%>%
+  kable(col.names = c("Desvio Padrão Número Efetivo de Partidos Eleitorais",
+                      "Desvio Padrão Número Efetivo de Partidos no Parlamento",
+                      "Desvio Padrão Número de Assentos"))
+
+#calculo quantil 
+#percentil 25
+Banco_Lab4 %>%
+  summarize(enep_25=quantile(enep, probs=0.25, na.rm=T),
+            enpp_25=quantile(enpp, probs=0.25, na.rm=T),
+            seats_25=quantile(seats, probs=0.25, na.rm=T))%>%
+  kable(col.names = c("Percentil 25 Número Efetivo de Partidos Eleitorais",
+                      "Percentil 25 Número Efetivo de Partidos no Parlamento",
+                      "Percentil 25 Número de Assentos"))
+#percentil 75
+Banco_Lab4 %>%
+  summarize(enep_75=quantile(enep, probs=0.75, na.rm=T),
+            enpp_75=quantile(enpp, probs=0.75, na.rm=T),
+            seats_75=quantile(seats, probs=0.75, na.rm=T))%>%
+  kable(col.names = c("Percentil 75 Número Efetivo de Partidos Eleitorais",
+                      "Percentil 75 Número Efetivo de Partidos no Parlamento",
+                      "Percentil 75 Número de Assentos"))
+#maximo
+Banco_Lab4 %>% 
+  summarize(enep_max=max(enep, na.rm=T),
+            enpp_media=max(enpp, na.rm=T),
+            seats_max=max(seats, na.rm=T))%>%
+  kable(col.names = c("Máximo Número Efetivo de Partidos Eleitorais",
+                      "Máximo Número Efetivo de Partidos no Parlamento",
+                      "Máximo Número de Assentos"))
+
+#minimo
+Banco_Lab4 %>% 
+  summarize(enep_min=min(enep, na.rm=T),
+            enpp_min=min(enpp, na.rm=T),
+            seats_min=min(seats, na.rm=T))%>%
+  kable(col.names = c("Minimo Número Efetivo de Partidos Eleitorais",
+                      "Minimo Número Efetivo de Partidos no Parlamento",
+                      "Minimo Número de Assentos"))
+
+```
+
+```{r}
+#grafico 
+#removendo outlier (-99.00) para fins de visualização
+Banco_Lab4[Banco_Lab4$enep!=-99.00,] %>%
+  ggplot() +
+  geom_histogram(aes(x=enep),binwidth=1,
+                 colour="black", 
+                 fill="blue") +
+                 xlab("Numero Efetivo de Partidos Eleitorais") +
+                   ylab("Count")
+  
+Banco_Lab4 %>%
+  ggplot() +
+  geom_histogram(aes(x=enpp),
+                 colour="black",
+                 fill="green") +
+  xlab("Numero Efetivo de Partidos no Parlamento (Legislativo)") +
+  ylab("Count")
+
+Banco_Lab4 %>%
+  ggplot() +
+  geom_histogram(aes(x=seats),
+                 colour="black",
+                 fill="orange") +
+  xlab("Número total de assentos na câmara baixa da legislatura nacional") +
+  ylab("Count")
+
+
+Banco_Lab4 %>%
+  ggplot() +
+  geom_histogram(aes(x=legislative_type),
+                 colour="black",
+                 fill="white") +
+  xlab("Sistema Eleitoral") +
+  ylab("Count")
+
+Banco_Lab4[Banco_Lab4$enep!=-99.00,] %>%
+  ggplot() +
+  geom_point(aes(x=seats,
+                 y=enep,
+             color=legislative_type)) +
+  xlab("Número de Partidos")+
+  ylab("Número de Assentos")
+```
+
