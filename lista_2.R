@@ -34,7 +34,7 @@ estatisticas_descritivas_tempo
 banco_tempo %>%
   ggplot() +
   geom_histogram(aes(x=Tempo),
-                 binwidth = 1,
+                 binwidth = 9,
                  color="black",
                  fill="orange")
 
