@@ -12,9 +12,14 @@ me_repr_may <- 100*(1.96*sqrt(0.45*(1-0.45)/n))
 me_reg_mar <- 100*(1.96*sqrt(0.24*(1-0.24)/n))
 me_reg_may <- 100*(1.96*sqrt(0.30*(1-0.30)/n))
 
-#using the Binomial Distribution of probability in order calculate 
+#using the Bernoulli and the Binomial Distributions of probability in order calculate 
 #the probability of success
+library(Rlab)
+#Binomial
 dbinom(0:1, size=1,p=0.68)
+#Bernoulli
+pbern(1, 0.68)
+
 
 #testing the binomial distribution for n=3 and n=36 
 plot(dbinom(0:36,size=36,prob=0.5))
@@ -34,10 +39,12 @@ estatisticas_descritivas_tempo <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
             sd_time=sd(Tempo),
+            primeiro_q=quantile(Tempo, probs=0.25),
+            terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo",
-        col.names=c("Média","Mediana","Desvio Padrão",
+        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                     "Máximo","Mínimo"))
 
 estatisticas_descritivas_tempo
@@ -49,10 +56,12 @@ estatisticas_descritivas_norte <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
             sd_time=sd(Tempo),
+            primeiro_q=quantile(Tempo, probs=0.25),
+            terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo-Zona Norte",
-        col.names=c("Média","Mediana","Desvio Padrão",
+        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                       "Máximo","Mínimo"))
 
 estatisticas_descritivas_sul <- banco_tempo %>%
@@ -60,10 +69,12 @@ estatisticas_descritivas_sul <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
             sd_time=sd(Tempo),
+            primeiro_q=quantile(Tempo, probs=0.25),
+            terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo-Zona Sul",
-        col.names=c("Média","Mediana","Desvio Padrão",
+        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                     "Máximo","Mínimo"))
 
 estatisticas_descritivas_leste <- banco_tempo %>%
@@ -71,10 +82,12 @@ estatisticas_descritivas_leste <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
             sd_time=sd(Tempo),
+            primeiro_q=quantile(Tempo, probs=0.25),
+            terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo-Zona Leste",
-        col.names=c("Média","Mediana","Desvio Padrão",
+        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                     "Máximo","Mínimo"))
 
 estatisticas_descritivas_oeste <- banco_tempo %>%
@@ -82,10 +95,12 @@ estatisticas_descritivas_oeste <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
             sd_time=sd(Tempo),
+            primeiro_q=quantile(Tempo, probs=0.25),
+            terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo-Zona Oeste",
-        col.names=c("Média","Mediana","Desvio Padrão",
+        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                     "Máximo","Mínimo"))
 
 estatisticas_descritivas_tempo
@@ -93,7 +108,8 @@ estatisticas_descritivas_norte
 estatisticas_descritivas_sul
 estatisticas_descritivas_leste
 estatisticas_descritivas_oeste
-#histograma
+
+#histogram
 
 banco_tempo %>%
   ggplot() +
