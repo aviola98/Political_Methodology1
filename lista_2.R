@@ -1,10 +1,24 @@
 #Lista 2
+#margin of error
+#setting the total n  
+n<- 2071
+#margin of error for approval (march and may)
+me_apr_mar <- 100*(1.96*sqrt(0.3*(1-0.3)/n))
+me_apr_may <- 100*(1.96*sqrt(0.24*(1-0.24)/n))
+#margin of error for reproval (march and may)
+me_repr_mar <-100*(1.96*sqrt(0.44*(1-0.44)/n))
+me_repr_may <- 100*(1.96*sqrt(0.45*(1-0.45)/n))
+#margin of error for regular (march and may)
+me_reg_mar <- 100*(1.96*sqrt(0.24*(1-0.24)/n))
+me_reg_may <- 100*(1.96*sqrt(0.30*(1-0.30)/n))
 
-local ({
-  .Table <- data.frame(Probability=dbinom(0:3, size=3,prob=0.5))
-  rownames(.Table) <- 0:3
-  print
-})
+#using the Binomial Distribution of probability in order calculate 
+#the probability of success
+dbinom(0:1, size=1,p=0.68)
+
+#testing the binomial distribution for n=3 and n=36 
+plot(dbinom(0:36,size=36,prob=0.5))
+plot(dbinom(0:3, size=3, prob=0.5))
 
 #opening data
 library(tidyverse)
@@ -37,9 +51,9 @@ estatisticas_descritivas_norte <- banco_tempo %>%
             sd_time=sd(Tempo),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
-  kable(caption="Estatísticas Descritivas para Tempo",
+  kable(caption="Estatísticas Descritivas para Tempo-Zona Norte",
         col.names=c("Média","Mediana","Desvio Padrão",
-                    "Máximo","Mínimo"))
+                      "Máximo","Mínimo"))
 
 estatisticas_descritivas_sul <- banco_tempo %>%
   filter(Zona=="SUL") %>%
@@ -48,7 +62,7 @@ estatisticas_descritivas_sul <- banco_tempo %>%
             sd_time=sd(Tempo),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
-  kable(caption="Estatísticas Descritivas para Tempo",
+  kable(caption="Estatísticas Descritivas para Tempo-Zona Sul",
         col.names=c("Média","Mediana","Desvio Padrão",
                     "Máximo","Mínimo"))
 
@@ -59,7 +73,7 @@ estatisticas_descritivas_leste <- banco_tempo %>%
             sd_time=sd(Tempo),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
-  kable(caption="Estatísticas Descritivas para Tempo",
+  kable(caption="Estatísticas Descritivas para Tempo-Zona Leste",
         col.names=c("Média","Mediana","Desvio Padrão",
                     "Máximo","Mínimo"))
 
@@ -70,9 +84,10 @@ estatisticas_descritivas_oeste <- banco_tempo %>%
             sd_time=sd(Tempo),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
-  kable(caption="Estatísticas Descritivas para Tempo",
+  kable(caption="Estatísticas Descritivas para Tempo-Zona Oeste",
         col.names=c("Média","Mediana","Desvio Padrão",
                     "Máximo","Mínimo"))
+
 estatisticas_descritivas_tempo
 estatisticas_descritivas_norte
 estatisticas_descritivas_sul
@@ -85,6 +100,9 @@ banco_tempo %>%
   geom_histogram(aes(x=Tempo),
                  binwidth = 9,
                  color="black",
-                 fill="orange")
+                 fill="orange",
+                 alpha=0.5) +
+  ggtitle("Histograma do Tempo") +
+  theme_minimal()
 
 
