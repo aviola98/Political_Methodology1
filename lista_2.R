@@ -38,13 +38,14 @@ View(banco_tempo)
 estatisticas_descritivas_tempo <- banco_tempo %>%
   summarize(mean_time=mean(Tempo),
             median_time=median(Tempo),
+            moda_time=mode(Tempo),
             sd_time=sd(Tempo),
             primeiro_q=quantile(Tempo, probs=0.25),
             terceiro_q=quantile(Tempo, probs=0.75),
             max_time=max(Tempo),
             min_time=min(Tempo)) %>%
   kable(caption="Estatísticas Descritivas para Tempo",
-        col.names=c("Média","Mediana","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
+        col.names=c("Média","Mediana","Moda","Desvio Padrão","Primeiro Quartil","Terceiro Quartil",
                     "Máximo","Mínimo"))
 
 estatisticas_descritivas_tempo
