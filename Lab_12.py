@@ -26,10 +26,18 @@ covariancia
 pib = [1441.000,3740.000,-1465.000,1275.000,2865.000,6596.000,-0.028]
 votos = [4700,54300,53100,23200,48610,46910,51640]
 
-plt.scatter(pib,votos)
-plt.title("Correlation between GDP and Vote")
-plt.xlabel("Votes")
-plt.ylabel("GDP")
+#plt.scatter(pib,votos)
+#plt.title("Correlation between GDP and Vote")
+#plt.xlabel("Votes")
+#plt.ylabel("GDP")
+#plt.show()
+
+plt.plot(pib,votos,'o')
+
+m, b = np.polyfit(pib,votos,1)
+
+plt.plot(pib,m*pib+b)
+
 plt.show()
 
 #opening database 2
@@ -57,8 +65,16 @@ covariancia_2
 pib_2 = [0.751,4230.000,5126.000,1441.000,3740.000,-1465.000,1275.000,2865.000,6596.000,-0.028]
 votos_2 = [20560,33831,30563,4700,54300,53100,23200,48610,46910,51640]
 
-plt.scatter(pib_2,votos_2)
-plt.title("Correlation between GDP and Vote")
-plt.xlabel("Votes")
-plt.ylabel("GDP")
+#plt.scatter(pib_2,votos_2)
+#plt.title("Correlation between GDP and Vote")
+#plt.xlabel("Votes")
+#plt.ylabel("GDP")
+#plt.show()
+
+plt.plot(pib_2,votos_2,'o')
+
+m, b = np.polyfit(pib_2,votos_2,1)
+
+plt.plot(pib_2,m*pib_2+b)
+
 plt.show()
