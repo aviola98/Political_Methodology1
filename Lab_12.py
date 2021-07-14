@@ -10,13 +10,13 @@ banco_1 = pd.read_excel("Lab_12.xlsx", engine="openpyxl")
 mean_gdp_1 = banco_1["PIB per capita – variação (X)"].mean()
 mean_vote_1 = banco_1["%voto-Partido Incumbente (Y)"].mean()
 #calculating the standard deviation
-std_gdp_1 = ["PIB per capita – variação (X)"].std()
-std_vote_1 = ["%voto-Partido Incumbente (Y)"].std()
+stdgdp_1 = ["PIB per capita – variação (X)"].std()
+stdvote_1 = ["%voto-Partido Incumbente (Y)"].std()
 
-print(mean_dgp_1)
+print(mean_gdp_1)
 print(mean_vote_1)
-print(std_gdp_1)
-print(std_vote_1)
+print(stdgdp_1)
+print(stdvote_1)
 
 #calculating the covariance
 banco_1 = banco_1.drop(0)
