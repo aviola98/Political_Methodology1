@@ -7,11 +7,16 @@ import matplotlib.pyplot as plt
 #opening the database
 banco_1 = pd.read_excel("Lab_12.xlsx", engine="openpyxl")
 #calulating the mean 
-banco_1["PIB per capita – variação (X)"].mean()
-banco_1["%voto-Partido Incumbente (Y)"].mean()
+mean_gdp_1 = banco_1["PIB per capita – variação (X)"].mean()
+mean_vote_1 = banco_1["%voto-Partido Incumbente (Y)"].mean()
 #calculating the standard deviation
-banco_1["PIB per capita – variação (X)"].std()
-banco_1["%voto-Partido Incumbente (Y)"].std()
+std_gdp_1 = ["PIB per capita – variação (X)"].std()
+std_vote_1 = ["%voto-Partido Incumbente (Y)"].std()
+
+print(mean_dgp_1)
+print(mean_vote_1)
+print(std_gdp_1)
+print(std_vote_1)
 
 #calculating the covariance
 banco_1 = banco_1.drop(0)
@@ -32,11 +37,16 @@ plt.show()
 banco_2 = pd.read_excel("Lab_12_2.xlsx", engine="openpyxl")
 
 #calulating the mean 
-banco_2["PIB per capita – variação (X)"].mean()
-banco_2["%voto-Partido Incumbente (Y)"].mean()
+mean_gdp_2 = banco_2["PIB per capita – variação (X)"].mean()
+mean_vote_2 = banco_2["%voto-Partido Incumbente (Y)"].mean()
 #calculating the standard deviation
-banco_2["PIB per capita – variação (X)"].std()
-banco_2["%voto-Partido Incumbente (Y)"].std()
+std_gdp_2 = banco_2["PIB per capita – variação (X)"].std()
+std_vote_2 = banco_2["%voto-Partido Incumbente (Y)"].std()
+
+print(mean_gdp_2)
+print(mean_vote_2)
+print(std_gdp_2)
+print(std_vote_2)
 
 #calculating the covariance
 banco_2 = banco_2.drop([0,4])
