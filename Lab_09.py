@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import random 
 import statistics as st
+import scipy
 
 #opening dataframe
 banco_tempo = pd.read_excel("Banco_Lab 08.xlsx",engine="openpyxl")
@@ -42,4 +43,4 @@ def mean_confidence_interval(data, confidence=0.68):
   h=se*scipy.stats.t.ppf((1+confidence) / 2.,n-1)
   return m, m-h, m+h
 
-
+mean_confidence_interval(banco_tempo_sample)
