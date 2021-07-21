@@ -8,22 +8,22 @@ data
 #using stats.ttest_ind_from_stats(mean1,sd1,n1,mean2,sd2,n2)
 
 #t-test for comparing 2015-19 to 2020
-stats.ttest_ind_from_stats(6.2,0.8,65,6.85,3.1,320)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=6.85,std2=3.1,n2=320)
 
 #t-test comparing 2020 to 2015
-stats.ttest_ind_from_stats(6.2,0.8,65,6.7,1.5,60)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=6.7,std2=1.5,n2=60)
 
 #t-test comparing 2020 to 2016
-stats.ttest_ind_from_stats(6.2,0.8,65,7.2,1.2,60)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=7.2,std2=1.2,n2=60)
 
 #t-test comparing 2020 to 2017
-stats.ttest_ind_from_stats(6.2,0.8,65,6.5,0.9,70)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=6.5,std2=0.9,n2=70)
 
 #t-test comparing 2020 to 2018
-stats.ttest_ind_from_stats(6.2,0.8,65,7.0,1.2,70)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=7.0,std2=1.2,n2=70)
 
 #t-test comparing 2020 to 2019
-stats.ttest_ind_from_stats(6.2,0.8,65,6.9,1.0,60)
+stats.ttest_ind_from_stats(mean1=6.2,std1=0.8,n1=65,mean2=6.9,std2=1.0,n2=60)
 
 
 
