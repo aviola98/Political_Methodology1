@@ -209,3 +209,78 @@ eleicao_2018_BR %>%
 grafico_voto_brasil2018
 ```
 
+```{r}
+#construindo tablela
+voto_haddad_exterior <- 
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
+  pull(TOT)
+
+voto_bozo_exterior <- 
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
+  pull(TOT)
+
+voto_haddad_brasil <-
+  eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
+  pull(TOT)
+
+voto_bozo_brasil <-
+  eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
+  pull(TOT)
+
+library(knitr)
+tabela_votos <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
+                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
+                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
+                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
+                                 voto_bozo_brasil+voto_bozo_exterior)) %>%
+  kable(caption = "Tabela de votos no Exterior e no Brasil",
+        col.names = c("Nome Candidato","Voto no Exterior","Voto no Brasil","Total")) 
+
+
+
+tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
+                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
+                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
+                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
+                                 voto_bozo_brasil+voto_bozo_exterior))
+
+
+tot_votos <- 47040906+57797847
+tot_votos_ext <-53730+131671
+tot_votos_br <- 46987176+57666176
+
+Pct_votos_bozo_ext <- 100*(voto_bozo_exterior/tot_votos_ext)
+Pct_votos_bozo_ext
+
+Pct_votos_haddad_ext <- 100*(voto_haddad_exterior/tot_votos_ext)
+Pct_votos_haddad_ext
+
+Pct_votos_bozo_br <- 100*(voto_bozo_brasil/tot_votos_br)
+Pct_votos_haddad_br <- 100*(voto_haddad_brasil/tot_votos_br)
+
+Pct_votos_bozo_br
+Pct_votos_haddad_br
+
+tabela_votos_pct %>%
+  mutate(Pct_votos_ext_haddad = 100*(53730/47040906),
+         Pct_votos_br_haddad = 100*(46987176/47040906),
+         Pct_votos_ext_bozo = 100*(131671/57797847),
+         Pct_votos_br_bozo = 100*(57666176/57797847))
+```
+
