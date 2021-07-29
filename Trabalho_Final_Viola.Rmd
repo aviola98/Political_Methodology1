@@ -1,0 +1,190 @@
+---
+title: "Trabalho Final"
+author: "André Viola"
+date: "7/27/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r, echo=FALSE}
+#limpando o documento html final
+knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
+```
+
+#### Número USP: 10325940
+
+### Resumo 
+
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2010. 
+
+1.    **Introdução** 
+
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a literatura, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
+Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está sendo feita  (Fidrmuc & Doyle, 2004; Arkilic, 2021, Toro & Walker). 
+
+2.    **Dados utilizados e procedimentos de tratamento**
+
+Nesse trabalho foram utilizados 2 bancos de dados disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE), o primeiro com o voto por zona eleitoral no exterior e o segundo com o voto por zona eleitoral no Brasil, ambos para o ano de 2010.
+
+
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+#OPENING AND PREARING THE DATA
+eleicao_2018 <- read_delim("votacao_secao_2018_BR.csv",
+                           delim = ";",
+                           locale=locale(encoding="latin1"))
+
+eleicao_2018_exterior <-                            
+eleicao_2018 %>%
+  filter(SG_UF == "ZZ") %>%
+  select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE) %>%
+  mutate(PAIS = case_when(NM_MUNICIPIO == "TÓQUIO" ~ "JAPÃO",
+                          NM_MUNICIPIO == "OSLO" ~ "NORUEGA",
+                          NM_MUNICIPIO == "WASHINGTON" ~ "EUA",
+                          NM_MUNICIPIO == "BARCELONA" ~"ESPANHA",
+                          NM_MUNICIPIO == "PARIS" ~ "FRANÇA",
+                          NM_MUNICIPIO == "GENEBRA" ~"SUIÇA",
+                          NM_MUNICIPIO == "VANCOUVER" ~"CANADÁ",
+                          NM_MUNICIPIO == "FRANKFURT" ~ "ALEMANHA", NM_MUNICIPIO == "NOVA YORK" ~ "EUA",
+                          NM_MUNICIPIO == "BOSTON" ~"EUA",
+                          NM_MUNICIPIO == "NAGÓIA" ~ "JAPÃO", 
+                          NM_MUNICIPIO == "LONDRES" ~"REINO UNIDO",
+                          NM_MUNICIPIO == "CANTÃO" ~"CHINA",
+                          NM_MUNICIPIO == "PRAIA"~"CABO VERDE",
+                          NM_MUNICIPIO == "MIAMI" ~"EUA",
+                          NM_MUNICIPIO == "MONTREAL" ~"CANADÁ",
+                          NM_MUNICIPIO == "LISBOA"~"PORTUGAL",
+                          NM_MUNICIPIO == "HAMAMATSU"~"JAPÃO",
+                          NM_MUNICIPIO == "DUBLIN"~"IRLANDA",
+                          NM_MUNICIPIO == "ROMA"~"ITÁLIA",
+                          NM_MUNICIPIO == "MUNIQUE"~"ALEMANHA",
+                          NM_MUNICIPIO == "MADRI"~"ESPANHA", NM_MUNICIPIO == "HOUSTON"~"EUA",
+                          NM_MUNICIPIO == "BRUXELAS"~"BÉLGICA",
+                          NM_MUNICIPIO == "MILÃO"~"ITÁLIA",
+                          NM_MUNICIPIO == "BUENOS AIRES"~"ARGENTINA",
+                          NM_MUNICIPIO == "ATLANTA"~"EUA",
+                          NM_MUNICIPIO == "WELLINGTON"~"NOVA ZELÂNDIA",
+                          NM_MUNICIPIO == "BERLIM"~"ALEMANHA",
+                          NM_MUNICIPIO == "PANAMÁ-PAN"~"PANAMÁ",
+                          NM_MUNICIPIO == "TEL AVIV"~"ISRAEL",
+                          NM_MUNICIPIO == "ESTOCOLMO"~"SUÉCIA",
+                          NM_MUNICIPIO == "FARO"~"PORTUGAL",
+                          NM_MUNICIPIO == "ASSUNÇÃO"~"PARAGUAY",
+                          NM_MUNICIPIO == "SEUL"~"CORÉIA DO SUL",
+                          NM_MUNICIPIO == "PORTO PRÍNCIPE"~"HAITI",
+                          NM_MUNICIPIO == "ROTTERDÃ"~"HOLANDA",
+                          NM_MUNICIPIO == "CAMBERRA" ~"AUSTRÁLIA",
+                          NM_MUNICIPIO == "CHICAGO"~"EUA",
+                          NM_MUNICIPIO == "MOSCOU" ~ "RUSSIA",
+                          NM_MUNICIPIO == "TORONTO" ~ "CANADÁ",
+                          NM_MUNICIPIO == "PEQUIM" ~ "CHINA",
+                          NM_MUNICIPIO == "COCHABAMBA"~"BOLÍVIA",
+                          NM_MUNICIPIO == "SÃO FRANCISCO" ~"EUA",
+                          NM_MUNICIPIO == "SÃO DOMINGOS"~ "SANTO DOMINGO",
+                          NM_MUNICIPIO == "SYDNEY"~"AUSTRÁLIA",NM_MUNICIPIO == "VARSÓVIA"~"POLONIA",
+                          NM_MUNICIPIO == "VIENA"~"AUSTRIA", NM_MUNICIPIO == "SINGAPURA-SING"~"SINGAPURA", 
+                          NM_MUNICIPIO == "DÍLI"~ "INDIA",
+                          NM_MUNICIPIO == "MONTEVIDÉU"~"URUGUAY",
+                          NM_MUNICIPIO == "CARACAS" ~"VENEZUELA",
+                          NM_MUNICIPIO == "PEDRO JUAN CABALLERO"~"PARAGUAY",
+                          NM_MUNICIPIO == "HARTFORD"~"EUA",
+                          NM_MUNICIPIO == "BOGOTÁ"~"COLOMBIA",
+                          NM_MUNICIPIO == "QUITO"~"EQUADOR",
+                          NM_MUNICIPIO == "CAIENA"~"GUIANA FRANCESA",
+                          NM_MUNICIPIO == "DAR ES SALAAM"~"TANZÂNIA",
+                          NM_MUNICIPIO == "LAGOS"~"NIGÉRIA",
+                          NM_MUNICIPIO == "PORTO"~"PORTUGAL",
+                          NM_MUNICIPIO == "TALIN"~"ESTÔNIA",
+                          NM_MUNICIPIO == "BUDAPESTE"~"HUNGRIA",
+                          NM_MUNICIPIO == "MAPUTO"~"MOÇAMBIQUE",
+                          NM_MUNICIPIO == "PRETÓRIA"~"AFRICA DO SUL",
+                          NM_MUNICIPIO == "MANILA"~"FILIPINAS",
+                          NM_MUNICIPIO == "TEGUCIGALPA"~"HONDURAS",
+                          NM_MUNICIPIO == "BUCARESTE"~"ROMÊNIA",
+                          NM_MUNICIPIO == "LIMA"~"PERU",
+                          NM_MUNICIPIO == "LOS ANGELES"~"EUA",
+                          NM_MUNICIPIO == "NAIRÓBI"~"QUENIA",
+                          NM_MUNICIPIO == "SALTO DEL GUAIRÁ"~"PARAGUAY",
+                          NM_MUNICIPIO == "TAIPÉ"~"TAIWAN",
+                          NM_MUNICIPIO == "CIUDAD DEL ESTE"~"PARAGUAY",
+                          NM_MUNICIPIO == "STA C LA SIERRA-BOLI"~"BOLÍVIA",
+                          NM_MUNICIPIO == "XANGAI"~"CHINA",
+                          NM_MUNICIPIO == "SÃO JOSÉ"~"EUA",
+                          NM_MUNICIPIO == "CHUY"~"URUGUAY",
+                          NM_MUNICIPIO == "BRATISLAVA"~"ESLOVÁQUIA",
+                          NM_MUNICIPIO == "OTTAWA"~"CANADÁ",
+                          NM_MUNICIPIO =="BEIRUTE"~"LIBANO",
+                          NM_MUNICIPIO == "JACARTA"~"INDONÉSIA",
+                          NM_MUNICIPIO == "MÉXICO-MEXI"~"MÉXICO",
+                          NM_MUNICIPIO == "TEERÃ"~"IRÃ",
+                          NM_MUNICIPIO =="MASCATE"~"OMÃ",
+                          NM_MUNICIPIO == "HONG KONG-HONG"~"HONG KONG",
+                          NM_MUNICIPIO == "COPENHAGUE-DINA"~"DINAMARCA",
+                          NM_MUNICIPIO == "ABU DHABI"~"EAU",
+                          NM_MUNICIPIO == "PARAMARIBO"~"SURINAME",
+                          NM_MUNICIPIO == "NOVA DELHI"~"INDIA",
+                          NM_MUNICIPIO == "KUAITE" ~"KUAITE",
+                          NM_MUNICIPIO == "MENDOZA"~"ARGENTINA",
+                          NM_MUNICIPIO == "KIEV" ~ "UCRÂNIA",
+                          NM_MUNICIPIO == "ATENAS" ~ "GRÉCIA",
+                          NM_MUNICIPIO == "RIADE"~"ARÁBIA SAUDITA",
+                          NM_MUNICIPIO == "DOHA" ~"QATAR",
+                          NM_MUNICIPIO == "CIUDAD GUYANA"~"VENEZUELA",
+                          NM_MUNICIPIO == "ZAGREB"~"CROÁCIA",
+                          NM_MUNICIPIO == "CONCEPCIÓN"~"CHILE",
+                          NM_MUNICIPIO == "AMÃ"~"JORDÂNIA",
+                          NM_MUNICIPIO == "LUANDA"~"ANGOLA",
+                          NM_MUNICIPIO == "BISSAU"~"GUINÉ BISSAU",
+                          NM_MUNICIPIO == "RABAT"~"MARROCOS",
+                          NM_MUNICIPIO == "ZURIQUE"~"SUIÇA",
+                          NM_MUNICIPIO == "WINDHOEK"~"NAMÍBIA",
+                        NM_MUNICIPIO == "RAMALLAH-PALE"~"PALESTINA", NM_MUNICIPIO == "TUNIS"~"TUNISIA", NM_MUNICIPIO == "CIUDAD GUAYANA"~"VENEZUELA", NM_MUNICIPIO == "GUATEMALA"~"GUATEMALA", NM_MUNICIPIO == "BELGRADO"~"SÉRVIA", NM_MUNICIPIO == "ARTIGAS"~"URUGUAY",
+                        NM_MUNICIPIO == "LA PAZ"~"BOLÍVIA",
+                        NM_MUNICIPIO == "SANTIAGO" ~"CHILE"
+                        
+                       ))
+
+eleicao_2018_BR <- eleicao_2018 %>%
+  filter(SG_UF != "ZZ") %>%
+  select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE)
+```
+
+```{r}
+voto_exterior_japao_2018 <- 
+  eleicao_2018_exterior %>%
+ filter(PAIS=="JAPÃO")
+
+
+voto_exterior_japao_2018_tot <-
+voto_exterior_japao_2018 %>%
+  filter(NR_TURNO == 2) %>%
+    group_by(NM_MUNICIPIO,NM_VOTAVEL) %>%
+  summarize(TOTAL_VOTOS=sum(QT_VOTOS, na.rm=T)) %>%
+  ungroup() 
+voto_exterior_japao_2018_tot
+voto_exterior_japao_2018_tot %>%
+  group_by(NM_MUNICIPIO,NM_VOTAVEL) %>%
+  filter(NM_VOTAVEL
+ %in% c("JAIR MESSIAS BOLSONARO","FERNANDO HADDAD")) %>%
+  ggplot()+
+  geom_col(aes(x=NM_VOTAVEL,
+               y=TOTAL_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5)+
+  facet_grid(cols=vars(NM_MUNICIPIO))+
+  scale_fill_manual(values = c("JAIR MESSIAS BOLSONARO"="Blue","FERNANDO HADDAD"="Red")) +
+  ggtitle("Voto brasileiro no Japão por cidade(2010)")+
+  xlab("Partido")+
+  ylab("Votos")# +
+  #theme_classic()
+eleicao_2018_exterior
+```
+
