@@ -154,3 +154,58 @@ eleicao_2018_BR <- eleicao_2018 %>%
   filter(SG_UF != "ZZ") %>%
   select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE)
 ```
+
+```{r}
+#verificando o total de votos no segundo turno exterior
+
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS))
+
+grafico_voto_exterior2018 <-
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  ggplot()+
+  geom_col(aes(x=NM_VOTAVEL,
+               y=TOT,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+  ggtitle("Voto brasileiro no exterior (2018)")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+grafico_voto_exterior2018
+```
+
+```{r}
+eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS))
+
+grafico_voto_brasil2018 <-
+eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  ggplot()+
+  geom_col(aes(x=NM_VOTAVEL,
+               y=TOT,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+  ggtitle("Voto brasileiro no Brasil (2018)")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+grafico_voto_brasil2018
+```
+
