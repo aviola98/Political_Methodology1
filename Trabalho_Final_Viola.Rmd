@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
 ```{r}
 library(tidyverse)
 library(knitr)
+library(cowplot)
 ```
 
 ```{r}
@@ -266,9 +267,6 @@ tabela_votos_pct %>%
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
-
-tabela_votos_pct
-grafico_voto_exterior2018
 ```
 
 ```{r}
@@ -291,6 +289,11 @@ tabela_votos_pct %>%
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
-
-grafico_voto_brasil2018
 ```
+
+```{r}
+library(cowplot)
+plot_grid(grafico_voto_brasil2018,grafico_voto_exterior2018, ncol=2)
+```
+
+
