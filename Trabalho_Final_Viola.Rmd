@@ -12,27 +12,11 @@ output:
 knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
 ```
 
-#### Número USP: 10325940
-
-### Resumo 
-
-O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2010. 
-
-1.    **Introdução** 
-
-Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a literatura, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
-Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está sendo feita  (Fidrmuc & Doyle, 2004; Arkilic, 2021, Toro & Walker). 
-
-2.    **Dados utilizados e procedimentos de tratamento**
-
-Nesse trabalho foram utilizados 2 bancos de dados disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE), o primeiro com o voto por zona eleitoral no exterior e o segundo com o voto por zona eleitoral no Brasil, ambos para o ano de 2010.
-
-
 
 ```{r}
 library(tidyverse)
+library(knitr)
 ```
-
 
 ```{r}
 #OPENING AND PREARING THE DATA
@@ -156,6 +140,101 @@ eleicao_2018_BR <- eleicao_2018 %>%
 ```
 
 ```{r}
+#construindo tablela
+voto_haddad_exterior <- 
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
+  pull(TOT)
+
+voto_bozo_exterior <- 
+eleicao_2018_exterior %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
+  pull(TOT)
+
+voto_haddad_brasil <-
+  eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
+  pull(TOT)
+
+voto_bozo_brasil <-
+  eleicao_2018_BR %>%
+  filter(NR_TURNO == 2) %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(TOT = sum(QT_VOTOS)) %>%
+  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
+  pull(TOT)
+
+tot_votos <- 47040906+57797847
+tot_votos_ext <-53730+131671
+tot_votos_br <- 46987176+57666176
+
+Pct_votos_bozo_ext <- 100*(voto_bozo_exterior/tot_votos_ext)
+Pct_votos_haddad_ext <- 100*(voto_haddad_exterior/tot_votos_ext)
+Pct_votos_bozo_br <- 100*(voto_bozo_brasil/tot_votos_br)
+Pct_votos_haddad_br <- 100*(voto_haddad_brasil/tot_votos_br)
+
+tabela_votos <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
+                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
+                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
+                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
+                                 voto_bozo_brasil+voto_bozo_exterior)) %>%
+  kable(caption = "Tabela de votos no Exterior e no Brasil",
+        col.names = c("Nome Candidato","Voto no Exterior","Voto no Brasil","Total")) 
+
+
+
+tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
+                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
+                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
+                       Pct_voto_br=c(Pct_votos_haddad_br,Pct_votos_bozo_br),
+                       Pct_voto_ext=c(Pct_votos_haddad_ext,Pct_votos_bozo_ext),
+                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
+                                 voto_bozo_brasil+voto_bozo_exterior))
+
+```
+
+#### Número USP: 10325940
+
+### Resumo 
+
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2010. 
+
+1.    **Introdução** 
+
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a literatura, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
+Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está sendo feita  (Fidrmuc & Doyle, 2004; Arkilic, 2021, Toro & Walker). 
+
+
+
+2.    **Dados utilizados e procedimentos de tratamento**
+
+Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes à eleição presidencial de 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
+
+O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos.
+
+Em seguida foi também realizada uma tabela onde se compara a quantidade de voto que cada candidato recebeu no Brasil e no Exterior. 
+```{r}
+
+tabela_votos_pct %>%
+  select(Nome_Candidato,Pct_voto_br,Pct_voto_ext,Total) %>%
+  kable(caption = "Tabela 1. Porcentagens de voto no Brasil e Exterior por Cadidato (Contada tendo como base o total de cada lugar",
+        col.names = c("Nome Candidato","% votos no Brasil","% votos no exterior","Total de Votos"))
+```
+
+É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
+
+
+
+```{r}
 #verificando o total de votos no segundo turno exterior
 
 eleicao_2018_exterior %>%
@@ -208,79 +287,3 @@ eleicao_2018_BR %>%
 
 grafico_voto_brasil2018
 ```
-
-```{r}
-#construindo tablela
-voto_haddad_exterior <- 
-eleicao_2018_exterior %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
-  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
-  pull(TOT)
-
-voto_bozo_exterior <- 
-eleicao_2018_exterior %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
-  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
-  pull(TOT)
-
-voto_haddad_brasil <-
-  eleicao_2018_BR %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
-  filter(NM_VOTAVEL=="FERNANDO HADDAD") %>%
-  pull(TOT)
-
-voto_bozo_brasil <-
-  eleicao_2018_BR %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
-  filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
-  pull(TOT)
-
-library(knitr)
-tabela_votos <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
-                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
-                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
-                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
-                                 voto_bozo_brasil+voto_bozo_exterior)) %>%
-  kable(caption = "Tabela de votos no Exterior e no Brasil",
-        col.names = c("Nome Candidato","Voto no Exterior","Voto no Brasil","Total")) 
-
-
-
-tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLSONARO"),
-                       Voto_Exterior = c(voto_haddad_exterior,voto_bozo_exterior),
-                       Voto_Brasil = c(voto_haddad_brasil,voto_bozo_brasil),
-                       Total = c(voto_haddad_brasil+voto_haddad_exterior,
-                                 voto_bozo_brasil+voto_bozo_exterior))
-
-
-tot_votos <- 47040906+57797847
-tot_votos_ext <-53730+131671
-tot_votos_br <- 46987176+57666176
-
-Pct_votos_bozo_ext <- 100*(voto_bozo_exterior/tot_votos_ext)
-Pct_votos_bozo_ext
-
-Pct_votos_haddad_ext <- 100*(voto_haddad_exterior/tot_votos_ext)
-Pct_votos_haddad_ext
-
-Pct_votos_bozo_br <- 100*(voto_bozo_brasil/tot_votos_br)
-Pct_votos_haddad_br <- 100*(voto_haddad_brasil/tot_votos_br)
-
-Pct_votos_bozo_br
-Pct_votos_haddad_br
-
-tabela_votos_pct %>%
-  mutate(Pct_votos_ext_haddad = 100*(53730/47040906),
-         Pct_votos_br_haddad = 100*(46987176/47040906),
-         Pct_votos_ext_bozo = 100*(131671/57797847),
-         Pct_votos_br_bozo = 100*(57666176/57797847))
-```
-
