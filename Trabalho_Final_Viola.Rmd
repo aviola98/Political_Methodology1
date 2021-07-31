@@ -173,6 +173,13 @@ voto_bozo_brasil <-
   filter(NM_VOTAVEL=="JAIR MESSIAS BOLSONARO") %>%
   pull(TOT)
 
+
+#INCLUIR VOTO BRANCO E NULO JUNTO
+
+
+
+
+
 tot_votos <- 47040906+57797847
 tot_votos_ext <-53730+131671
 tot_votos_br <- 46987176+57666176
@@ -200,6 +207,7 @@ tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLS
                        Total = c(voto_haddad_brasil+voto_haddad_exterior,
                                  voto_bozo_brasil+voto_bozo_exterior))
 
+tabela_votos_pct
 ```
 
 #### Número USP: 10325940
@@ -224,10 +232,13 @@ O banco foi separado em dois, um para os votos em solo brasileiro e outro para o
 Em seguida foi também realizada uma tabela onde se compara a quantidade de voto que cada candidato recebeu no Brasil e no Exterior. 
 ```{r}
 
+tabela_votos_pct_kb <-
 tabela_votos_pct %>%
   select(Nome_Candidato,Pct_voto_br,Pct_voto_ext,Total) %>%
   kable(caption = "Tabela 1. Porcentagens de voto no Brasil e Exterior por Cadidato (Contada tendo como base o total de cada lugar",
         col.names = c("Nome Candidato","% votos no Brasil","% votos no exterior","Total de Votos"))
+
+tabela_votos_pct_kb
 ```
 
 É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
@@ -237,46 +248,42 @@ tabela_votos_pct %>%
 ```{r}
 #verificando o total de votos no segundo turno exterior
 
-eleicao_2018_exterior %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS))
+#eleicao_2018_exterior %>%
+#  filter(NR_TURNO == 2) %>%
+ # group_by(NM_VOTAVEL) %>%
+#  summarise(TOT = sum(QT_VOTOS))
 
 grafico_voto_exterior2018 <-
-eleicao_2018_exterior %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
+tabela_votos_pct %>%
+  group_by(Nome_Candidato) %>%
   ggplot()+
-  geom_col(aes(x=NM_VOTAVEL,
-               y=TOT,
-               fill=NM_VOTAVEL),
+  geom_col(aes(x=Nome_Candidato,
+               y=Pct_voto_ext,
+               fill=Nome_Candidato),
            color="black",
-           binwidth = 2,
            alpha=0.5) +
   ggtitle("Voto brasileiro no exterior (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
 
+tabela_votos_pct
 grafico_voto_exterior2018
 ```
 
 ```{r}
-eleicao_2018_BR %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS))
+#eleicao_2018_BR %>%
+ # filter(NR_TURNO == 2) %>%
+  #group_by(NM_VOTAVEL) %>%
+  #summarise(TOT = sum(QT_VOTOS))
 
 grafico_voto_brasil2018 <-
-eleicao_2018_BR %>%
-  filter(NR_TURNO == 2) %>%
-  group_by(NM_VOTAVEL) %>%
-  summarise(TOT = sum(QT_VOTOS)) %>%
+tabela_votos_pct %>%
+  group_by(Nome_Candidato) %>%
   ggplot()+
-  geom_col(aes(x=NM_VOTAVEL,
-               y=TOT,
-               fill=NM_VOTAVEL),
+  geom_col(aes(x=Nome_Candidato,
+               y=Pct_voto_br,
+               fill=Nome_Candidato),
            color="black",
            binwidth = 2,
            alpha=0.5) +
