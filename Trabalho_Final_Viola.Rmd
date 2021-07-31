@@ -207,8 +207,6 @@ tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLS
                        Pct_voto_ext=c(Pct_votos_haddad_ext,Pct_votos_bozo_ext),
                        Total = c(voto_haddad_brasil+voto_haddad_exterior,
                                  voto_bozo_brasil+voto_bozo_exterior))
-
-tabela_votos_pct
 ```
 
 #### Número USP: 10325940
