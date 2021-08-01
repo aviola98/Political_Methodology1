@@ -12,7 +12,6 @@ output:
 knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
 ```
 
-
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -213,13 +212,16 @@ tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLS
 
 ### Resumo 
 
-O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2010. 
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2018, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. 
 
 1.    **Introdução** 
 
-Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a literatura, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
-Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está sendo feita  (Fidrmuc & Doyle, 2004; Arkilic, 2021, Toro & Walker). 
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a a mesma, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
 
+
+Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está bem documentada  (Fidrmuc & Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu & Urbatsch, 2021), indicando que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo mais à direita, mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. 
+
+Assim, nesse trabalho procuro explorar a relação entre residir no exterior (X) e votar na direita (Y). 
 
 
 2.    **Dados utilizados e procedimentos de tratamento**
@@ -229,6 +231,8 @@ Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório
 O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos.
 
 Em seguida foi também realizada uma tabela onde se compara a quantidade de voto que cada candidato recebeu no Brasil e no Exterior. 
+
+
 ```{r}
 
 tabela_votos_pct_kb <-
@@ -239,6 +243,14 @@ tabela_votos_pct %>%
 
 tabela_votos_pct_kb
 ```
+
+
+
+
+
+
+
+
 
 É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
 
