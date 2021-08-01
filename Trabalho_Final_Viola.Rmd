@@ -246,7 +246,10 @@ tabela_votos_pct_kb
 
 ```{r}
 #verificando o total de votos no segundo turno exterior
-
+tabela_votos_pct <-
+tabela_votos_pct %>%
+  mutate(Nome_Candidato=case_when(Nome_Candidato=="FERNANDO HADDAD"~"HADDAD",
+                                  Nome_Candidato=="JAIR MESSIAS BOLSONARO"~"BOLSONARO"))
 #eleicao_2018_exterior %>%
 #  filter(NR_TURNO == 2) %>%
  # group_by(NM_VOTAVEL) %>%
@@ -261,10 +264,11 @@ tabela_votos_pct %>%
                fill=Nome_Candidato),
            color="black",
            alpha=0.5) +
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro no exterior (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+  theme(legend.position="none")
 ```
 
 ```{r}
@@ -283,10 +287,11 @@ tabela_votos_pct %>%
            color="black",
            binwidth = 2,
            alpha=0.5) +
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro no Brasil (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+  theme(legend.position="none") 
 ```
 
 ```{r}
