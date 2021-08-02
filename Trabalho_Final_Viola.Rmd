@@ -364,7 +364,7 @@ Em seguida foi também realizada uma tabela onde se compara a quantidade de voto
 tabela_votos_pct_kb <-
 tabela_votos_pct %>%
   select(Nome_Candidato,Pct_voto_br,Pct_voto_ext,Total) %>%
-  kable(caption = "Tabela 1. Porcentagens de voto no Brasil e Exterior por Cadidato (Contada tendo como base o total de cada lugar",
+  kable(caption = "Tabela 1. Porcentagens de voto no Brasil e Exterior por Cadidato (Contada tendo como base o total de cada lugar)",
         col.names = c("Nome Candidato","% votos no Brasil","% votos no exterior","Total de Votos"))
 
 tabela_votos_pct_kb
