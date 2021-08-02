@@ -438,6 +438,16 @@ library(cowplot)
 plot_grid(grafico_voto_brasil2018,grafico_voto_exterior2018, ncol=2)
 ```
 
+
+
+
+
+
+
+
+
+
+
 ```{r}
 #dividing the vote by country of origin
 
@@ -466,11 +476,12 @@ eleicao_2018_pct_por_reg_pais %>%
                fill=NM_VOTAVEL),
            color="black",
            binwidth = 2,
-           alpha=0.5) +
+           alpha=0.5
+
+        ) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro-Europa")+
-  xlab("Candidato")+
   ylab("Votos") +
     theme(legend.position="none") 
 
@@ -488,11 +499,12 @@ voto_br_asia2018 <-
                fill=NM_VOTAVEL),
            color="black",
            binwidth = 2,
-           alpha=0.5) +
+           alpha=0.5
+
+         ) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro-Ásia")+
-  xlab("Candidato")+
   ylab("Votos") +
    theme(legend.position="none") 
 
@@ -510,11 +522,12 @@ voto_br_america2018 <-
                fill=NM_VOTAVEL),
            color="black",
            binwidth = 2,
-           alpha=0.5) +
+           alpha=0.5
+
+           ) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro-América")+
-  xlab("Candidato")+
   ylab("Votos") +
    theme(legend.position="none") 
 
@@ -532,11 +545,11 @@ voto_br_africa2018 <-
                fill=NM_VOTAVEL),
            color="black",
            binwidth = 2,
-           alpha=0.5) +
+           alpha=0.5
+            ) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro-África")+
-  xlab("Candidato")+
   ylab("Votos") +
    theme(legend.position="none") 
 
@@ -554,23 +567,23 @@ voto_br_oceania2018 <-
                fill=NM_VOTAVEL),
            color="black",
            binwidth = 2,
-           alpha=0.5) +
+           alpha=0.5
+           ) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
   ggtitle("Voto brasileiro-Oceania")+
-  xlab("Candidato")+
   ylab("Votos") +
     theme(legend.position="none") 
 
 
 
-ggarrange(voto_br_africa2018,voto_br_america2018,voto_br_asia2018,voto_br_europa2018,
-          voto_br_oceania2018 + remove("x.text"),
-          ncol = 3,
-          nrow = 2)
+ggarrange(voto_br_africa2018,voto_br_america2018 + remove("x.text"),
+          ncol = 2)
 
+ggarrange(voto_br_asia2018,voto_br_europa2018,
+            ncol = 2)
 
-
+voto_br_oceania2018
 ```
 
 
