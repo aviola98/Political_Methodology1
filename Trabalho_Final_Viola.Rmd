@@ -70,7 +70,7 @@ eleicao_2018 %>%
                           NM_MUNICIPIO == "PEQUIM" ~ "CHINA",
                           NM_MUNICIPIO == "COCHABAMBA"~"BOLÍVIA",
                           NM_MUNICIPIO == "SÃO FRANCISCO" ~"EUA",
-                          NM_MUNICIPIO == "SÃO DOMINGOS"~ "SANTO DOMINGO",
+                          NM_MUNICIPIO == "SÃO DOMINGOS"~ "REPÚBLICA DOMINICANA",
                           NM_MUNICIPIO == "SYDNEY"~"AUSTRÁLIA",NM_MUNICIPIO == "VARSÓVIA"~"POLONIA",
                           NM_MUNICIPIO == "VIENA"~"AUSTRIA", NM_MUNICIPIO == "SINGAPURA-SING"~"SINGAPURA", 
                           NM_MUNICIPIO == "DÍLI"~ "INDIA",
@@ -80,7 +80,7 @@ eleicao_2018 %>%
                           NM_MUNICIPIO == "HARTFORD"~"EUA",
                           NM_MUNICIPIO == "BOGOTÁ"~"COLOMBIA",
                           NM_MUNICIPIO == "QUITO"~"EQUADOR",
-                          NM_MUNICIPIO == "CAIENA"~"GUIANA FRANCESA",
+                          NM_MUNICIPIO == "CAIENA"~"FRANÇA",
                           NM_MUNICIPIO == "DAR ES SALAAM"~"TANZÂNIA",
                           NM_MUNICIPIO == "LAGOS"~"NIGÉRIA",
                           NM_MUNICIPIO == "PORTO"~"PORTUGAL",
@@ -130,9 +130,135 @@ eleicao_2018 %>%
                           NM_MUNICIPIO == "WINDHOEK"~"NAMÍBIA",
                         NM_MUNICIPIO == "RAMALLAH-PALE"~"PALESTINA", NM_MUNICIPIO == "TUNIS"~"TUNISIA", NM_MUNICIPIO == "CIUDAD GUAYANA"~"VENEZUELA", NM_MUNICIPIO == "GUATEMALA"~"GUATEMALA", NM_MUNICIPIO == "BELGRADO"~"SÉRVIA", NM_MUNICIPIO == "ARTIGAS"~"URUGUAY",
                         NM_MUNICIPIO == "LA PAZ"~"BOLÍVIA",
-                        NM_MUNICIPIO == "SANTIAGO" ~"CHILE"
+                        NM_MUNICIPIO == "SANTIAGO" ~"CHILE",
+                        NM_MUNICIPIO == "ABIDJÃ"~"COSTA DO MARFIM", NM_MUNICIPIO == "ACCRA-GANA"~"GANA",
+                        NM_MUNICIPIO == "ANCARA"~"TURQUIA", NM_MUNICIPIO == "BANGKOK"~"TAILANDIA", NM_MUNICIPIO == "CAIRO"~"EGITO",
+                      NM_MUNICIPIO == "CIDADE DO CABO"~"AFRICA DO SUL",
+                      NM_MUNICIPIO == "CÓRDOBA"~"ARGENTINA",
+                      NM_MUNICIPIO == "DACAR"~"SENEGAL",
+                      NM_MUNICIPIO == "ENCARNACIÓN"~"PARAGUAY",
+                      NM_MUNICIPIO == "GEORGETOWN"~"GUIANA",
+                      NM_MUNICIPIO == "HANÓI"~"VIETNÃ",
+                      NM_MUNICIPIO == "HAVANA"~"CUBA",
+                      NM_MUNICIPIO == "HELSINQUE"~"FINLÂNDIA",
+                      NM_MUNICIPIO == "ISTAMBUL"~"TURQUIA",
+                      NM_MUNICIPIO == "KATMANDU"~"NEPAL",
+                      NM_MUNICIPIO == "KINGSTON-JAMAICA"~"JAMAICA",
+                      NM_MUNICIPIO == "KINSHASA"~"REP.DEM. DO CONGO",
+                      NM_MUNICIPIO == "KUALA LUMPUR"~"MALÁSIA",
+                      NM_MUNICIPIO == "LIUBLIANA"~"ESLOVÊNIA",
+                      NM_MUNICIPIO == "LUSACA"~"ZÂMBIA",
+                      NM_MUNICIPIO == "MANÁGUA"~"NICARÁGUA",
+                      NM_MUNICIPIO == "NASSAU"~"BAHAMAS",
+                      NM_MUNICIPIO == "NICOSIA"~"CIPRE",
+                      NM_MUNICIPIO == "PORT OF SPAIN"~"TRINIDAD E TOBAGO",
+                      NM_MUNICIPIO == "PRAGA"~"REPÚBLICA TCHECA",
+                      NM_MUNICIPIO == "RIO BRANCO"~"URUGUAY",
+                      NM_MUNICIPIO == "SÃO SALVADOR"~"EL SALVADOR"
+                        
                         
                        ))
+
+eleicao_2018_exterior <-
+eleicao_2018_exterior %>%
+  mutate(REGIAO=case_when(PAIS %in% c("JAPÃO",
+                          "CHINA",
+                          "ARÁBIA SAUDITA",
+                          "EAU",
+                          "FILIPINAS",
+                          "HONG KONG",
+                          "INDONÉSIA",
+                          "IRÃ",
+                          "CORÉIA DO SUL",
+                          "ISRAEL",
+                          "JORDÂNIA",
+                          "KUAITE",
+                          "LIBANO",
+                          "MALÁSIA",
+                          "INDIA",
+                          "QATAR",
+                          "SINGAPURA",
+                          "TAILANDIA",
+                          "TAIWAN",
+                          "TURQUIA",
+                          "NEPAL",
+                          "OMÃ",
+                          "VIETNÃ",
+                          "PALESTINA") ~ "ÁSIA",
+                          PAIS %in% c("AFRICA DO SUL",
+                          "ANGOLA",
+                          "CABO VERDE",
+                          "COSTA DO MARFIM",
+                          "EGITO",
+                          "GANA",
+                          "ZÂMBIA",
+                          "GUINÉ BISSAU",
+                          "MARROCOS",
+                          "MOÇAMBIQUE",
+                          "NAMÍBIA",
+                          "TANZÂNIA",
+                          "NIGÉRIA",
+                          "QUENIA",
+                          "SENEGAL",
+                          "TUNISIA",
+                          "REP.DEM. DO CONGO")~"ÁFRICA",
+                          PAIS %in% c("ALEMANHA",
+                          "AUSTRIA",
+                          "BÉLGICA",
+                          "CIPRE",
+                          "CROÁCIA",
+                         "DINAMARCA",
+                        "ESLOVÁQUIA",
+                        "ESLOVÊNIA",
+                        "ESPANHA",
+                        "ESTÔNIA",
+                       "FINLÂNDIA",
+                       "FRANÇA",
+                       "GRÉCIA",
+                       "HOLANDA",
+                       "HUNGRIA",
+                       "IRLANDA",
+                       "ITÁLIA",
+                      "NORUEGA",
+                      "POLONIA",
+                      "PORTUGAL",
+                      "REINO UNIDO",
+                      "REPÚBLICA TCHECA",
+                     "ROMÊNIA",
+                     "RUSSIA",
+                     "SÉRVIA",
+                     "SUÉCIA",
+                     "SUIÇA",
+                     "UCRÂNIA")~"EUROPA",
+                     PAIS %in% c("AUSTRÁLIA",
+                     "NOVA ZELÂNDIA") ~ "OCEANIA",
+                     PAIS %in% c("PARAGUAY",
+                                 "EUA",
+                                 "GUIANA",
+                                 "BOLÍVIA",
+                                 "TRINIDAD E TOBAGO",
+                                 "VENEZUELA",
+                                 "EL SALVADOR",
+                                 "SURINAME",
+                                 "GUATEMALA",
+                                 "JAMAICA",
+                                 "REPÚBLICA DOMINICANA",
+                                 "URUGUAY",
+                                 "HONDURAS",
+                                 "BAHAMAS",
+                                 "PERU",
+                                 "HAITI",
+                                 "COSTA RICA",
+                                 "MÉXICO",
+                                 "CANADÁ",
+                                 "ARGENTINA",
+                                 "CHILE",
+                                 "PANAMÁ",
+                                 "EQUADOR",
+                                 "NICARÁGUA",
+                                 "COLOMBIA",
+                                 "CUBA")~"AMÉRICA"))
+
 
 eleicao_2018_BR <- eleicao_2018 %>%
   filter(SG_UF != "ZZ") %>%
@@ -310,5 +436,138 @@ tabela_votos_pct %>%
 library(cowplot)
 plot_grid(grafico_voto_brasil2018,grafico_voto_exterior2018, ncol=2)
 ```
+
+```{r}
+#dividing the vote by country of origin
+
+#goal(identify wheter there are differences in voting behaviour dependending on the host country)
+
+eleicao_2018_pct_por_reg_pais <-
+eleicao_2018_exterior %>%
+  filter(NR_TURNO==2) %>%
+  group_by(REGIAO,PAIS, NM_VOTAVEL) %>%
+  summarise(TOT_VOTOS_CAND=sum(QT_VOTOS)) %>%
+  mutate(TOT_VOTOS=sum(TOT_VOTOS_CAND)) %>%
+  mutate(PCT_VOTOS=100*(TOT_VOTOS_CAND/TOT_VOTOS)) %>%
+  mutate(NM_VOTAVEL=case_when(NM_VOTAVEL=="FERNANDO HADDAD"~"HADDAD",
+                              NM_VOTAVEL=="JAIR MESSIAS BOLSONARO"~"BOLSONARO"))
+  
+
+#graph eu 
+voto_br_europa2018 <-
+eleicao_2018_pct_por_reg_pais %>%
+  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
+         REGIAO == "EUROPA") %>%
+  group_by(NM_VOTAVEL) %>%
+  ggplot() +
+   geom_col(aes(x=PAIS,
+               y=PCT_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+    coord_flip()+
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
+  ggtitle("Voto brasileiro na Europa")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+voto_br_europa2018
+
+#graph asia 
+voto_br_asia2018 <- 
+  eleicao_2018_pct_por_reg_pais %>%
+  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
+         REGIAO == "ÁSIA") %>%
+  group_by(NM_VOTAVEL) %>%
+  ggplot() +
+   geom_col(aes(x=PAIS,
+               y=PCT_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+    coord_flip()+
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
+  ggtitle("Voto brasileiro na Europa")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+voto_br_asia2018
+
+#graph america
+voto_br_america2018 <-
+  eleicao_2018_pct_por_reg_pais %>%
+  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
+         REGIAO == "AMÉRICA") %>%
+  group_by(NM_VOTAVEL) %>%
+  ggplot() +
+   geom_col(aes(x=PAIS,
+               y=PCT_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+    coord_flip()+
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
+  ggtitle("Voto brasileiro na Europa")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+voto_br_america2018
+
+#graph africa
+voto_br_africa2018 <-
+  eleicao_2018_pct_por_reg_pais %>%
+  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
+         REGIAO == "ÁFRICA") %>%
+  group_by(NM_VOTAVEL) %>%
+  ggplot() +
+   geom_col(aes(x=PAIS,
+               y=PCT_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+    coord_flip()+
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
+  ggtitle("Voto brasileiro na Europa")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+voto_br_africa2018
+
+#graph oceania
+voto_br_oceania2018 <-
+  eleicao_2018_pct_por_reg_pais %>%
+  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
+         REGIAO == "OCEANIA") %>%
+  group_by(NM_VOTAVEL) %>%
+  ggplot() +
+   geom_col(aes(x=PAIS,
+               y=PCT_VOTOS,
+               fill=NM_VOTAVEL),
+           color="black",
+           binwidth = 2,
+           alpha=0.5) +
+    coord_flip()+
+  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
+  ggtitle("Voto brasileiro na Europa")+
+  xlab("Candidato")+
+  ylab("Votos") +
+  theme_minimal()
+
+voto_br_oceania2018
+```
+
+
+
+
+
+
 
 
