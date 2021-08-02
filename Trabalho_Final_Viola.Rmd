@@ -468,7 +468,7 @@ eleicao_2018_pct_por_reg_pais %>%
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa")+
+  ggtitle("Voto brasileiro na Europa (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
@@ -490,7 +490,7 @@ voto_br_asia2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa")+
+  ggtitle("Voto brasileiro na Ásia (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
@@ -512,7 +512,7 @@ voto_br_america2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa")+
+  ggtitle("Voto brasileiro na América (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
@@ -534,7 +534,7 @@ voto_br_africa2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa")+
+  ggtitle("Voto brasileiro na África (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
@@ -556,7 +556,7 @@ voto_br_oceania2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa")+
+  ggtitle("Voto brasileiro na Oceania (2018)")+
   xlab("Candidato")+
   ylab("Votos") +
   theme_minimal()
