@@ -20,7 +20,107 @@ library(ggpubr)
 ```
 
 ```{r}
-#OPENING AND PREARING THE DATA
+#2002
+eleicao_2002_exterior <- read_delim("votacao_secao_2002_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2002_exterior <-
+eleicao_2002_exterior %>%
+  filter(NUM_TURNO==2)
+
+eleicao_2002_exterior
+eleicao_2002_exterior %>%
+  group_by(NUM_VOTAVEL) %>%
+  summarise(TOT= sum(QTDE_VOTOS))
+
+20772 + 13742 + 749 + 780 
+
+pct_voto_opo2002ext <-  100*(20772/36043)
+pct_voto_inc2002ext <-   100*(13742/36043)
+voto_branco2002ext  <-      100*(749/36043)
+voto_null2002ext  <-    100*(780/36043)
+```
+
+```{r}
+#2006
+eleicao_2006_exterior <- read_delim("votacao_secao_2006_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2006_exterior <-
+eleicao_2006_exterior %>%
+  filter(NUM_TURNO==2)
+
+eleicao_2006_exterior %>%
+  group_by(NUM_VOTAVEL) %>%
+  summarise(TOT= sum(QTDE_VOTOS))
+
+17948 + 20912 +985 + 1038 
+
+pct_voto_opo2006ext <-  100*(20912/40883)
+pct_voto_inc2006ext <-  100*(17948/40883)
+voto_branco2006ext  <-  100*(985/40883)
+voto_null2006ext  <-    100*(1038/40883)
+
+```
+
+
+```{r}
+#2010
+eleicao_2010_exterior <- read_delim("votacao_secao_2010_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2010_exterior <-
+eleicao_2010_exterior %>%
+  filter(NUM_TURNO==2)
+
+eleicao_2010_exterior %>%
+  group_by(NUM_VOTAVEL) %>%
+  summarise(TOT= sum(QTDE_VOTOS))
+
+33112 + 47913 + 2313 + 2253
+
+pct_voto_opo2010ext <-  100*(47913/85591)
+pct_voto_inc2010ext <-  100*(33112/85591)
+voto_branco2010ext  <-  100*(2313/85591)
+voto_null2010ext    <-  100*(2253/85591)
+```
+
+```{r}
+#2014
+
+eleicao_2014_exterior <- read_delim("votacao_secao_2014_BR.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2014_exterior <-
+eleicao_2006_exterior %>%
+  filter(NUM_TURNO==2 
+         & SIGLA_UF == "ZZ")
+
+eleicao_2014_exterior %>%
+  group_by(NUM_VOTAVEL) %>%
+  summarise(TOT= sum(QTDE_VOTOS))
+
+17948 + 20912 + 985 + 1038
+
+pct_voto_opo2014ext <-  100*(20912/40883)
+pct_voto_inc2014ext <-  100*(17948/40883)
+voto_branco2014ext  <-  100*(985/40883)
+voto_null2014ext  <-    100*(1038/40883)
+
+ 
+```
+
+```{r}
+#2018
+
 eleicao_2018 <- read_delim("votacao_secao_2018_BR.csv",
                            delim = ";",
                            locale=locale(encoding="latin1"))
@@ -264,6 +364,8 @@ eleicao_2018_exterior %>%
 eleicao_2018_BR <- eleicao_2018 %>%
   filter(SG_UF != "ZZ") %>%
   select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE)
+
+
 ```
 
 ```{r}
@@ -443,6 +545,13 @@ library(cowplot)
 plot_grid(grafico_voto_brasil2018,grafico_voto_exterior2018, ncol=2)
 ```
 
+```{r}
+#média de votos na direita e na esquerda
+
+
+
+
+```
 
 
 
