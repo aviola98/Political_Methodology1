@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo=FALSE,error=FALSE,warning=FALSE,message=FALSE)
 library(tidyverse)
 library(knitr)
 library(cowplot)
+library(ggpubr)
 ```
 
 ```{r}
@@ -468,12 +469,12 @@ eleicao_2018_pct_por_reg_pais %>%
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Europa (2018)")+
+  ggtitle("Voto brasileiro-Europa")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+    theme(legend.position="none") 
 
-voto_br_europa2018
+
 
 #graph asia 
 voto_br_asia2018 <- 
@@ -490,12 +491,12 @@ voto_br_asia2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Ásia (2018)")+
+  ggtitle("Voto brasileiro-Ásia")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+   theme(legend.position="none") 
 
-voto_br_asia2018
+
 
 #graph america
 voto_br_america2018 <-
@@ -512,12 +513,12 @@ voto_br_america2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na América (2018)")+
+  ggtitle("Voto brasileiro-América")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+   theme(legend.position="none") 
 
-voto_br_america2018
+
 
 #graph africa
 voto_br_africa2018 <-
@@ -534,12 +535,12 @@ voto_br_africa2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na África (2018)")+
+  ggtitle("Voto brasileiro-África")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+   theme(legend.position="none") 
 
-voto_br_africa2018
+
 
 #graph oceania
 voto_br_oceania2018 <-
@@ -556,12 +557,20 @@ voto_br_oceania2018 <-
            alpha=0.5) +
     coord_flip()+
   scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro na Oceania (2018)")+
+  ggtitle("Voto brasileiro-Oceania")+
   xlab("Candidato")+
   ylab("Votos") +
-  theme_minimal()
+    theme(legend.position="none") 
 
-voto_br_oceania2018
+
+
+ggarrange(voto_br_africa2018,voto_br_america2018,voto_br_asia2018,voto_br_europa2018,
+          voto_br_oceania2018 + remove("x.text"),
+          ncol = 3,
+          nrow = 2)
+
+
+
 ```
 
 
