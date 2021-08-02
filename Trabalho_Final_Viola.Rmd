@@ -339,16 +339,21 @@ tabela_votos_pct <- tibble(Nome_Candidato=c("FERNANDO HADDAD","JAIR MESSIAS BOLS
 
 ### Resumo 
 
-O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2018, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. 
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2018, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação política do voto (direita ou esquerda).
 
 1.    **Introdução** 
 
 Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As razões para essa divisão está bem documentada na literatura (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020), sendo que de acordo com a a mesma, o Nordeste, por ser a região mais pobre se beneficiou mais dos programas de transferência de renda dos governos petistas criando um vínculo de gratidão, enquanto que, por outro lado, os escandalos de corrupção como o "Mensalão" minaram a confiança no partido por parte das pessoas com maiores condições de vida, que se concentram no eixo Sul-Sudeste.  
 
 
-Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia está discussão está bem documentada  (Fidrmuc & Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu & Urbatsch, 2021), indicando que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo mais à direita, mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. 
 
-Assim, nesse trabalho procuro explorar a relação entre residir no exterior (X) e votar na direita (Y). 
+Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia a discussão sobre o voto imigrante está bem documentada. 
+
+Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no impacto que os eleitores imigrantes tem no sistema democrático de seu país natal como também nos processos que levaram à extensão dos direitos políticos para a diaspora (Collyer, 2014; Lafleur, 2017; Rhodes & Harutyunyan, 2010), por outro se tem um foco nas preferências políticas dos cidadãos residentes no exterior e como elas diferem dos eleitores residentes em seu país natal (Fidrmuc & Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu & Urbatsch, 2020).
+
+Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo mais à direita(Rosca,2021; Turcu & Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc & Doyle, 2004; Turcu & Rosca, 2019).
+
+
 
 
 2.    **Dados utilizados e procedimentos de tratamento**
