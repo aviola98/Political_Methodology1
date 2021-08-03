@@ -486,10 +486,39 @@ tabela_1 <- tibble(ANO=c(2002,2006,2010,2014,2018),
                                        voto_branco2014ext + voto_null2014ext,
                                        voto_branco2018ext + voto_null2018ext))
 
-
-	
+tabela_1_display <-
+tabela_1 %>% 
+  kable(caption = "Porcentagem de votos no Brasil e Exterior nas eleições presidenciais brasileiras entre 2002-2018",
+        col.names = c("Ano","% voto incumbente(Brasil)", "% de voto oposição (Brasil)", "% de voto incumbente(Exterior)",
+                      "% de voto oposição(Exterior)", "% de voto branco/nulo (Brasil)","% de voto branco/nulo (Exterior)"))
 ```
 
+```{r}
+
+tabela_2 <-
+tabela_1 %>%
+  summarise(media_votos_incbr=mean(PCT_VOTO_INCBR),
+            media_votos_incext=mean(PCT_VOTO_INCEXT),
+         media_votos_opbr=mean(PCT_VOTO_OPBR),
+         media_votos_opext=mean(PCT_VOTO_OPEXT),
+         media_nullbr=mean(PCT_VOTO_BRANCO_NULOBR),
+         media_nullext=mean(PCT_VOTO_BRANCONULOEXT),
+         sd_voto_incbr=sd(PCT_VOTO_INCBR),
+         sd_voto_incext=sd(PCT_VOTO_INCEXT),
+         sd_voto_opbr=sd(PCT_VOTO_OPBR),
+         sd_voto_opext=sd(PCT_VOTO_OPEXT),
+         sd_nullbr=sd(PCT_VOTO_BRANCO_NULOBR),
+         sd_nullext=sd(PCT_VOTO_BRANCONULOEXT))
+
+tabela_2# %>%
+  kable(caption = "Estatísticas descritivas",
+        col.names = c("Média de votos no Incumbente (Brasil)",
+                      "Média de votos no Incumbente (Exterior)",
+                      "Média de votos na oposição (Brasil)",
+                      "Média de votos na oposição (Exterior)",
+                      "Média de votos nulo/branco (Brasil)",
+                      "Média de votos nulo/branco (Exterior)"))
+```
 
 
 
