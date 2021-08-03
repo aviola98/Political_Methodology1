@@ -491,33 +491,120 @@ tabela_1 %>%
   kable(caption = "Porcentagem de votos no Brasil e Exterior nas eleições presidenciais brasileiras entre 2002-2018",
         col.names = c("Ano","% voto incumbente(Brasil)", "% de voto oposição (Brasil)", "% de voto incumbente(Exterior)",
                       "% de voto oposição(Exterior)", "% de voto branco/nulo (Brasil)","% de voto branco/nulo (Exterior)"))
+
+tabela_1_display
 ```
 
 ```{r}
 
-tabela_2 <-
-tabela_1 %>%
-  summarise(media_votos_incbr=mean(PCT_VOTO_INCBR),
-            media_votos_incext=mean(PCT_VOTO_INCEXT),
-         media_votos_opbr=mean(PCT_VOTO_OPBR),
-         media_votos_opext=mean(PCT_VOTO_OPEXT),
-         media_nullbr=mean(PCT_VOTO_BRANCO_NULOBR),
-         media_nullext=mean(PCT_VOTO_BRANCONULOEXT),
-         sd_voto_incbr=sd(PCT_VOTO_INCBR),
-         sd_voto_incext=sd(PCT_VOTO_INCEXT),
-         sd_voto_opbr=sd(PCT_VOTO_OPBR),
-         sd_voto_opext=sd(PCT_VOTO_OPEXT),
-         sd_nullbr=sd(PCT_VOTO_BRANCO_NULOBR),
-         sd_nullext=sd(PCT_VOTO_BRANCONULOEXT))
+estat_br <-
+tabela_1 %>%        summarise(media_votos_incbr=mean(PCT_VOTO_INCBR),                     median_votos_incbr=median(PCT_VOTO_INCBR),
+        sd_voto_incbr=sd(PCT_VOTO_INCBR),
+        media_votos_opbr=mean(PCT_VOTO_OPBR),
+        median_votos_opbr=median(PCT_VOTO_OPBR),
+        sd_voto_opbr=sd(PCT_VOTO_OPBR),
+        media_nullbr=mean(PCT_VOTO_BRANCO_NULOBR),
+        median_nullbr=median(PCT_VOTO_BRANCO_NULOBR),
+        sd_nullbr=sd(PCT_VOTO_BRANCO_NULOBR))
 
-tabela_2# %>%
+estat_ext <- 
+  tabela_1 %>% 
+  summarise(media_votos_incext=mean(PCT_VOTO_INCEXT),
+            median_votos_incext=median(PCT_VOTO_INCEXT),
+            sd_voto_incext=sd(PCT_VOTO_INCEXT),
+            media_votos_opext=mean(PCT_VOTO_OPEXT),
+            median_votos_opext=median(PCT_VOTO_OPEXT),
+            sd_voto_opext=sd(PCT_VOTO_OPEXT),
+            media_nullext=mean(PCT_VOTO_BRANCONULOEXT),
+            median_nullext=median(PCT_VOTO_BRANCONULOEXT),
+            sd_nullext=sd(PCT_VOTO_BRANCONULOEXT))
+
+media_voto_incbr <- estat_br %>%
+  pull(media_votos_incbr)
+
+media_voto_opbr <- estat_br %>%
+  pull(media_votos_opbr)
+
+media_nullbr <- estat_br %>%
+  pull(media_nullbr)
+
+media_voto_incex <- estat_ext %>%
+  pull(media_votos_incext)
+
+media_voto_opex <-estat_ext %>%
+  pull(media_votos_opext)
+
+media_nullex <- estat_ext %>%
+  pull(media_nullext)
+
+median_voto_incbr <- estat_br %>%
+  pull(median_votos_incbr)
+
+median_voto_opbr <- estat_br %>%
+  pull(median_votos_opbr)
+
+median_nullbr <- estat_br %>%
+  pull(median_nullbr)
+
+median_voto_inex <- estat_ext %>%
+  pull(median_votos_incext)
+
+median_voto_opex <- estat_ext %>%
+  pull(median_votos_opext)
+
+median_nullex <- estat_ext %>%
+  pull(median_nullext)
+
+sd_inbr <- estat_br %>%
+  pull(sd_voto_incbr)
+
+sd_opbr <- estat_br %>%
+  pull(sd_voto_opbr)
+
+sd_nullbr <- estat_br %>%
+  pull(sd_nullbr)
+
+sd_inex <- estat_ext %>%
+  pull(sd_voto_incext)
+
+sd_opex <- estat_ext %>%
+  pull(sd_voto_opext)
+
+sd_nullex <- estat_ext %>%
+  pull(sd_nullext)
+
+
+Tabela_2 <- 
+  tibble(Categoria=c("Voto no Incumbente",
+                     "Voto na Oposição",
+                     "Voto Branco/Nulo"),
+         Media_Brasil=c(media_voto_incbr,
+                 media_voto_opbr,
+                 media_nullbr),
+         Media_Exterior=c(media_voto_incex,
+                          media_voto_opex,
+                          media_nullex),
+         Mediana_Brasil=c(median_voto_incbr,
+                          median_voto_opbr,
+                          median_nullbr),
+         Mediana_Exterior=c(median_voto_inex,
+                            median_voto_opex,
+                            median_nullex),
+         SD_BR=c(sd_inbr,
+                 sd_opbr,
+                 sd_nullbr),
+         SD_EXT=c(sd_inex,
+                  sd_opex,
+                  sd_nullex))
+
+Tabela_2_display <-
+  Tabela_2 %>%
   kable(caption = "Estatísticas descritivas",
-        col.names = c("Média de votos no Incumbente (Brasil)",
-                      "Média de votos no Incumbente (Exterior)",
-                      "Média de votos na oposição (Brasil)",
-                      "Média de votos na oposição (Exterior)",
-                      "Média de votos nulo/branco (Brasil)",
-                      "Média de votos nulo/branco (Exterior)"))
+        col.names = c("Categoria","Média(Brasil)","Média(Exterior)",
+                      "Mediana(Brasil)","Mediana(Exterior)",
+                      "Desvio Padrão(Brasil)","Desvio Padrão(Exterior)"))
+
+Tabela_2_display
 ```
 
 
