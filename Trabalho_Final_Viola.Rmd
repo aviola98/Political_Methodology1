@@ -30,16 +30,9 @@ eleicao_2002_exterior <-
 eleicao_2002_exterior %>%
   filter(NUM_TURNO==2)
 
-eleicao_2002_exterior
-eleicao_2002_exterior %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-20772 + 13742 + 749 + 780 
-
 pct_voto_opo2002ext <-  100*(20772/36043)
 pct_voto_inc2002ext <-   100*(13742/36043)
-voto_branco2002ext  <-      100*(749/36043)
+voto_branco2002ext  <-    100*(749/36043)
 voto_null2002ext  <-    100*(780/36043)
 
 eleicao_2002_br <- read_delim("votacao_secao_2002_BR.txt",
@@ -50,19 +43,11 @@ eleicao_2002_br <- read_delim("votacao_secao_2002_BR.txt",
 eleicao_2002_br <- eleicao_2002_br %>%
   filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2)
 
-
-eleicao_2002_br %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-52772592 + 33356997 + 1727011 + 3771358 + 258 
-
 pct_voto_opo2002br <-  100*(52772592/91628216)
 pct_voto_inc2002br <-   100*(33356997/91628216)
 voto_branco2002br  <-      100*(1727011/91628216)
 voto_null2002br  <-    100*(3771358/91628216)
 x <- 100*(258/91628216)
-
 ```
 
 ```{r}
@@ -75,12 +60,6 @@ eleicao_2006_exterior <- read_delim("votacao_secao_2006_ZZ.txt",
 eleicao_2006_exterior <-
 eleicao_2006_exterior %>%
   filter(NUM_TURNO==2)
-
-eleicao_2006_exterior %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-17948 + 20912 +985 + 1038 
 
 pct_voto_opo2006ext <-  100*(20912/40883)
 pct_voto_inc2006ext <-  100*(17948/40883)
@@ -97,12 +76,6 @@ eleicao_2006_br <- read_delim("votacao_secao_2006_BR.txt",
 eleicao_2006_br <- eleicao_2006_br %>%
   filter(SIGLA_UF != "ZZ" & NUM_TURNO==2)
   
-eleicao_2006_br %>%
-   group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-58295042 + 37543178 + 1351448 + 4808553 
-
 
 pct_voto_opo2006br <-  100*(37543178/101998221)
 pct_voto_inc2006br <-   100*(58295042/101998221)
@@ -122,12 +95,6 @@ eleicao_2010_exterior <-
 eleicao_2010_exterior %>%
   filter(NUM_TURNO==2)
 
-eleicao_2010_exterior %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-33112 + 47913 + 2313 + 2253
-
 pct_voto_opo2010ext <-  100*(47913/85591)
 pct_voto_inc2010ext <-  100*(33112/85591)
 voto_branco2010ext  <-  100*(2313/85591)
@@ -142,13 +109,6 @@ eleicao_2010_br <- read_delim("votacao_secao_2010_BR.txt",
 eleicao_2010_br <-
 eleicao_2010_br %>%
   filter(SIGLA_UF != "ZZ" & NUM_TURNO==2)
-
-eleicao_2010_br %>%
-    group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-
-55691399 + 43638458 + 2449553 + 4685801 + 272
 
 pct_voto_opo2010br <-  100*(43638458/106465483)
 pct_voto_inc2010br <-  100*(55691399/106465483)
@@ -169,12 +129,6 @@ eleicao_2014 %>%
   filter(NUM_TURNO==2 
          & SIGLA_UF == "ZZ")
 
-eleicao_2014_exterior %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-31059 + 104121 + 3159 + 3534
-
 pct_voto_opo2014ext <-  100*(104121/141873)
 pct_voto_inc2014ext <-  100*(31059/141873)
 voto_branco2014ext  <-  100*(3159/141873)
@@ -182,12 +136,6 @@ voto_null2014ext  <-    100*(3534/141873)
 
 eleicao_2014_br <- eleicao_2014 %>%
   filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2)
-
-eleicao_2014_br %>%
-  group_by(NUM_VOTAVEL) %>%
-  summarise(TOT= sum(QTDE_VOTOS))
-
-54470059 + 50937034 + 1918660 + 5216253
 
 pct_voto_opo2014br <-  100*(50937034/112542006)
 pct_voto_inc2014br <-  100*(54470059/112542006)
@@ -600,9 +548,9 @@ Tabela_2 <-
 Tabela_2_display <-
   Tabela_2 %>%
   kable(caption = "Estatísticas descritivas",
-        col.names = c("Categoria","Média(Brasil)","Média(Exterior)",
-                      "Mediana(Brasil)","Mediana(Exterior)",
-                      "Desvio Padrão(Brasil)","Desvio Padrão(Exterior)"))
+        col.names = c("Categoria","Média (Brasil) ","Média (Exterior) ",
+                      "Mediana (Brasil) ","Mediana (Exterior) ",
+                      "Desvio Padrão (Brasil) ","Desvio Padrão (Exterior) "))
 
 Tabela_2_display
 ```
@@ -611,7 +559,7 @@ Tabela_2_display
 
 ### Resumo 
 
-O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para testar se há diferença entre a orientação ideológica dos votos brasileiros no exterior e os votos brasileiros no Brasil nas eleições para presidente no ano de 2018, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação política do voto (direita ou esquerda).
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para explorar a relação entre o eleitor brasileiro residir no exterior e o voto na oposição, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação do voto (incumbente ou oposição).
 
 1.    **Introdução** 
 
@@ -623,250 +571,22 @@ Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença d
 
 Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no impacto que os eleitores imigrantes tem no sistema democrático de seu país natal como também nos processos que levaram à extensão dos direitos políticos para a diaspora (Collyer, 2014; Lafleur, 2017; Rhodes & Harutyunyan, 2010), por outro se tem um foco nas preferências políticas dos cidadãos residentes no exterior e como elas diferem dos eleitores residentes em seu país natal (Fidrmuc & Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu & Urbatsch, 2020).
 
-Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo mais à direita(Rosca,2021; Turcu & Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc & Doyle, 2004; Turcu & Rosca, 2019).
+Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo a votar na oposição(Rosca,2021; Turcu & Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc & Doyle, 2004; Turcu & Rosca, 2019).
 
 
 
 
 2.    **Dados utilizados e procedimentos de tratamento**
 
-Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes à eleição presidencial de 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
+Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes às eleições presidenciais entre 2002 e 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
 
 O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos.
 
-Em seguida foi também realizada uma tabela onde se compara a quantidade de voto que cada candidato recebeu no Brasil e no Exterior. 
-
-
-```{r}
-
-tabela_votos_pct_kb <-
-tabela_votos_pct %>%
-  select(Nome_Candidato,Pct_voto_br,Pct_voto_ext,Total) %>%
-  kable(caption = "Tabela 1. Porcentagens de voto no Brasil e Exterior por Cadidato (Contada tendo como base o total de cada lugar)",
-        col.names = c("Nome Candidato","% votos no Brasil","% votos no exterior","Total de Votos"))
-
-tabela_votos_pct_kb
-```
-
-
-
-
-
+Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment*.
 
 
 
 
 É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
 
-
-
-```{r}
-#verificando o total de votos no segundo turno exterior
-tabela_votos_pct <-
-tabela_votos_pct %>%
-  mutate(Nome_Candidato=case_when(Nome_Candidato=="FERNANDO HADDAD"~"HADDAD",
-                                  Nome_Candidato=="JAIR MESSIAS BOLSONARO"~"BOLSONARO"))
-#eleicao_2018_exterior %>%
-#  filter(NR_TURNO == 2) %>%
- # group_by(NM_VOTAVEL) %>%
-#  summarise(TOT = sum(QT_VOTOS))
-
-grafico_voto_exterior2018 <-
-tabela_votos_pct %>%
-  group_by(Nome_Candidato) %>%
-  ggplot()+
-  geom_col(aes(x=Nome_Candidato,
-               y=Pct_voto_ext,
-               fill=Nome_Candidato),
-           color="black",
-           alpha=0.5) +
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro no exterior (2018)")+
-  xlab("Candidato")+
-  ylab("Votos") +
-  theme(legend.position="none")
-```
-
-```{r}
-#eleicao_2018_BR %>%
- # filter(NR_TURNO == 2) %>%
-  #group_by(NM_VOTAVEL) %>%
-  #summarise(TOT = sum(QT_VOTOS))
-
-grafico_voto_brasil2018 <-
-tabela_votos_pct %>%
-  group_by(Nome_Candidato) %>%
-  ggplot()+
-  geom_col(aes(x=Nome_Candidato,
-               y=Pct_voto_br,
-               fill=Nome_Candidato),
-           color="black",
-           binwidth = 2,
-           alpha=0.5) +
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro no Brasil (2018)")+
-  xlab("Candidato")+
-  ylab("Votos") +
-  theme(legend.position="none") 
-```
-
-```{r}
-library(cowplot)
-plot_grid(grafico_voto_brasil2018,grafico_voto_exterior2018, ncol=2)
-```
-
-```{r}
-#média de votos na direita e na esquerda
-
-
-
-
-```
-
-
-
-
-
-
-
-
-
-
-```{r}
-#dividing the vote by country of origin
-
-#goal(identify wheter there are differences in voting behaviour dependending on the host country)
-
-eleicao_2018_pct_por_reg_pais <-
-eleicao_2018_exterior %>%
-  filter(NR_TURNO==2) %>%
-  group_by(REGIAO,PAIS, NM_VOTAVEL) %>%
-  summarise(TOT_VOTOS_CAND=sum(QT_VOTOS)) %>%
-  mutate(TOT_VOTOS=sum(TOT_VOTOS_CAND)) %>%
-  mutate(PCT_VOTOS=100*(TOT_VOTOS_CAND/TOT_VOTOS)) %>%
-  mutate(NM_VOTAVEL=case_when(NM_VOTAVEL=="FERNANDO HADDAD"~"HADDAD",
-                              NM_VOTAVEL=="JAIR MESSIAS BOLSONARO"~"BOLSONARO"))
-  
-
-#graph eu 
-voto_br_europa2018 <-
-eleicao_2018_pct_por_reg_pais %>%
-  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
-         REGIAO == "EUROPA") %>%
-  group_by(NM_VOTAVEL) %>%
-  ggplot() +
-   geom_col(aes(x=PAIS,
-               y=PCT_VOTOS,
-               fill=NM_VOTAVEL),
-           color="black",
-           binwidth = 2,
-           alpha=0.5
-
-        ) +
-    coord_flip()+
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro-Europa")+
-  ylab("Votos") +
-    theme(legend.position="none") 
-
-
-
-#graph asia 
-voto_br_asia2018 <- 
-  eleicao_2018_pct_por_reg_pais %>%
-  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
-         REGIAO == "ÁSIA") %>%
-  group_by(NM_VOTAVEL) %>%
-  ggplot() +
-   geom_col(aes(x=PAIS,
-               y=PCT_VOTOS,
-               fill=NM_VOTAVEL),
-           color="black",
-           binwidth = 2,
-           alpha=0.5
-
-         ) +
-    coord_flip()+
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro-Ásia")+
-  ylab("Votos") +
-   theme(legend.position="none") 
-
-
-
-#graph america
-voto_br_america2018 <-
-  eleicao_2018_pct_por_reg_pais %>%
-  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
-         REGIAO == "AMÉRICA") %>%
-  group_by(NM_VOTAVEL) %>%
-  ggplot() +
-   geom_col(aes(x=PAIS,
-               y=PCT_VOTOS,
-               fill=NM_VOTAVEL),
-           color="black",
-           binwidth = 2,
-           alpha=0.5
-
-           ) +
-    coord_flip()+
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro-América")+
-  ylab("Votos") +
-   theme(legend.position="none") 
-
-
-
-#graph africa
-voto_br_africa2018 <-
-  eleicao_2018_pct_por_reg_pais %>%
-  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
-         REGIAO == "ÁFRICA") %>%
-  group_by(NM_VOTAVEL) %>%
-  ggplot() +
-   geom_col(aes(x=PAIS,
-               y=PCT_VOTOS,
-               fill=NM_VOTAVEL),
-           color="black",
-           binwidth = 2,
-           alpha=0.5
-            ) +
-    coord_flip()+
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro-África")+
-  ylab("Votos") +
-   theme(legend.position="none") 
-
-
-
-#graph oceania
-voto_br_oceania2018 <-
-  eleicao_2018_pct_por_reg_pais %>%
-  filter(NM_VOTAVEL %in% c("HADDAD","BOLSONARO"),
-         REGIAO == "OCEANIA") %>%
-  group_by(NM_VOTAVEL) %>%
-  ggplot() +
-   geom_col(aes(x=PAIS,
-               y=PCT_VOTOS,
-               fill=NM_VOTAVEL),
-           color="black",
-           binwidth = 2,
-           alpha=0.5
-           ) +
-    coord_flip()+
-  scale_fill_manual(values = c("HADDAD"="Red","BOLSONARO"="Blue")) +
-  ggtitle("Voto brasileiro-Oceania")+
-  ylab("Votos") +
-    theme(legend.position="none") 
-
-
-
-ggarrange(voto_br_africa2018,voto_br_america2018 + remove("x.text"),
-          ncol = 2)
-
-ggarrange(voto_br_asia2018,voto_br_europa2018,
-            ncol = 2)
-
-voto_br_oceania2018
-```
 
