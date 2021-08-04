@@ -35,6 +35,7 @@ pct_voto_inc2002ext <-   100*(13742/36043)
 voto_branco2002ext  <-    100*(749/36043)
 voto_null2002ext  <-    100*(780/36043)
 
+
 eleicao_2002_br <- read_delim("votacao_secao_2002_BR.txt",
                             delim = ";",
                            locale=locale(encoding="latin1"),
@@ -65,7 +66,6 @@ pct_voto_opo2006ext <-  100*(20912/40883)
 pct_voto_inc2006ext <-  100*(17948/40883)
 voto_branco2006ext  <-  100*(985/40883)
 voto_null2006ext  <-    100*(1038/40883)
-
 
 eleicao_2006_br <- read_delim("votacao_secao_2006_BR.txt",
                             delim = ";",
@@ -390,23 +390,10 @@ eleicao_2018_BR <- eleicao_2018 %>%
   filter(SG_UF != "ZZ" & NR_TURNO==2) %>%
   select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE)
 
-eleicao_2018_exterior %>%
-  group_by(NR_VOTAVEL) %>%
-  summarise(TOT= sum(QT_VOTOS))
-
-
-
 pct_voto_opo2018ext <-  100*(131671/201166)
 pct_voto_inc2018ext <-  100*(53730/201166)
 voto_branco2018ext  <-  100*(7241/201166)
 voto_null2018ext  <-    100*(8524/201166)
-
-eleicao_2018_BR %>%
-  group_by(NR_VOTAVEL) %>%
-  summarise(TOT= sum(QT_VOTOS))
-
-
-46987176 + 57666176 +  2479352 + 8599581
 
 pct_voto_opo2018br <-  100*(57666176/115732285)
 pct_voto_inc2018br <-  100*(46987176/115732285)
@@ -442,6 +429,81 @@ tabela_1 %>%
 
 tabela_1_display
 ```
+
+```{r}
+#tb 
+
+voto_incbr2002 <-  33356997
+voto_opbr2002  <-
+52772592
+voto_incex2002  <-
+13742
+voto_opex2002  <-
+20772
+voto_incbr2006  <-
+58295042
+voto_opbr2006  <-
+37543178
+voto_incex2006  <-
+17948
+voto_opex2006  <-
+20912
+voto_incbr2010  <-
+55691399
+voto_opbr2010  <-
+43638458
+voto_incex2010  <-
+33112
+voto_opex2010  <-
+47913
+voto_incbr2014   <-
+54470059
+voto_opbr2014  <-
+50937034
+voto_incex2014  <-
+31059
+voto_opex2014  <-
+104121
+voto_incbr2018  <-
+46987176
+voto_opbr2018  <-
+57666176
+voto_incex2018  <-
+53730
+voto_opex2018  <-
+131671
+
+
+tabela_numero <- tibble(Ano=c(2002,2006,2010,2014,2018),
+                         Incumbente_BR= c(voto_incbr2002,
+                                            voto_incbr2006,
+                                            voto_incbr2010,
+                                            voto_incbr2014,
+                                            voto_incbr2018),
+                         Incumbente_EXT=c(voto_incex2002,
+                                          voto_incex2006,
+                                          voto_incex2010,
+                                          voto_incex2014,
+                                          voto_incex2018),
+                        Oposicao_BR=c(voto_opbr2002,
+                                      voto_opbr2006,
+                                      voto_opbr2010,
+                                      voto_opbr2014,
+                                      voto_opbr2018),
+                        Oposicao_EXT=c(voto_opex2002,
+                                       voto_opex2006,
+                                       voto_opex2010,
+                                       voto_opex2014,
+                                       voto_opex2018))
+
+tabela_numero %>%
+  ggplot()+
+  geom_histogram(aes(x=Incumbente_BR))
+```
+
+
+
+
 
 ```{r}
 
@@ -555,6 +617,24 @@ Tabela_2_display <-
 Tabela_2_display
 ```
 
+
+```{r}
+#histogram
+
+
+
+tabela_1 %>%
+  ggplot()+
+  geom_histogram(aes(x=PCT_VOTO_INCBR))
+```
+
+
+
+
+
+
+
+
 #### Número USP: 10325940
 
 ### Resumo 
@@ -582,7 +662,7 @@ Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório
 
 O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos.
 
-Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment*.
+Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment* dois anos antes.
 
 
 
