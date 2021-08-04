@@ -472,10 +472,33 @@ binded_ext <-
                         NUM_VOTAVEL==17 ~ "OPOSIÇÃO"))
 
 
-hist_op_
+hist_op_br <-
 binded_br %>%
   group_by(ANO_ELEICAO) %>%
-  filter(CASE=="OPOSIÇÃO") %>%
+  filter(CASE=="OPOSIÇÃO" &
+           SIGLA_UF != "ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS))
+
+hist_inc_br <- 
+  binded_br %>%
+    group_by(ANO_ELEICAO) %>%
+  filter(CASE=="INCUMBENTE" &
+           SIGLA_UF != "ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS))
+
+hist_op_ext <-
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="OPOSIÇÃO" &
+           SIGLA_UF=="ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS))
+
+hist_inc_ext <-
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="INCUMBENTE" &
+           SIGLA_UF=="ZZ") %>%
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS))
 ```
