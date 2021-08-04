@@ -523,8 +523,6 @@ ggarrange(hist_inc_br,hist_inc_ext,
 ```
 
 
-
-
 ```{r}
 tabela_1 <- tibble(ANO=c(2002,2006,2010,2014,2018),
                    PCT_VOTO_INCBR=c(pct_voto_inc2002br,pct_voto_inc2006br,
