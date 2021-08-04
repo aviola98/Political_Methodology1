@@ -431,81 +431,6 @@ tabela_1_display
 ```
 
 ```{r}
-#tb 
-
-voto_incbr2002 <-  33356997
-voto_opbr2002  <-
-52772592
-voto_incex2002  <-
-13742
-voto_opex2002  <-
-20772
-voto_incbr2006  <-
-58295042
-voto_opbr2006  <-
-37543178
-voto_incex2006  <-
-17948
-voto_opex2006  <-
-20912
-voto_incbr2010  <-
-55691399
-voto_opbr2010  <-
-43638458
-voto_incex2010  <-
-33112
-voto_opex2010  <-
-47913
-voto_incbr2014   <-
-54470059
-voto_opbr2014  <-
-50937034
-voto_incex2014  <-
-31059
-voto_opex2014  <-
-104121
-voto_incbr2018  <-
-46987176
-voto_opbr2018  <-
-57666176
-voto_incex2018  <-
-53730
-voto_opex2018  <-
-131671
-
-
-tabela_numero <- tibble(Ano=c(2002,2006,2010,2014,2018),
-                         Incumbente_BR= c(voto_incbr2002,
-                                            voto_incbr2006,
-                                            voto_incbr2010,
-                                            voto_incbr2014,
-                                            voto_incbr2018),
-                         Incumbente_EXT=c(voto_incex2002,
-                                          voto_incex2006,
-                                          voto_incex2010,
-                                          voto_incex2014,
-                                          voto_incex2018),
-                        Oposicao_BR=c(voto_opbr2002,
-                                      voto_opbr2006,
-                                      voto_opbr2010,
-                                      voto_opbr2014,
-                                      voto_opbr2018),
-                        Oposicao_EXT=c(voto_opex2002,
-                                       voto_opex2006,
-                                       voto_opex2010,
-                                       voto_opex2014,
-                                       voto_opex2018))
-
-tabela_numero %>%
-  ggplot()+
-  geom_histogram(aes(x=Incumbente_BR))
-```
-
-
-
-
-
-```{r}
 
 estat_br <-
 tabela_1 %>%        summarise(media_votos_incbr=mean(PCT_VOTO_INCBR),                     median_votos_incbr=median(PCT_VOTO_INCBR),
@@ -621,11 +546,210 @@ Tabela_2_display
 ```{r}
 #histogram
 
-
-
-tabela_1 %>%
+hist_op_br2002 <-
+eleicao_2002_br %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
   ggplot()+
-  geom_histogram(aes(x=PCT_VOTO_INCBR))
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_br2002 <-
+eleicao_2002_br %>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_inc_br2006 <-
+eleicao_2006_br %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_br2006 <-
+eleicao_2006_br %>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_br2010 <-
+eleicao_2010_br %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_br2010 <-
+eleicao_2010_br %>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_br2014 <-
+eleicao_2014_br %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_br2014 <-
+eleicao_2014_br %>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_br2018 <-
+eleicao_2018_BR %>%
+  filter(NR_VOTAVEL==13) %>%
+  group_by(NR_VOTAVEL,QT_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QT_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_br2018 <-
+eleicao_2018_BR %>%
+  filter(NR_VOTAVEL==17) %>%
+  group_by(NR_VOTAVEL,QT_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QT_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+
+hist_op_ext2002 <-
+eleicao_2002_exterior %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_ext2002 <-
+eleicao_2002_exterior%>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_inc_ext2006 <-
+eleicao_2006_exterior %>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_ext2006 <-
+eleicao_2006_exterior%>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_ext2010 <-
+eleicao_2010_exterior%>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_ext2010 <-
+eleicao_2010_exterior%>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_ext2014 <-
+eleicao_2014_exterior%>%
+  filter(NUM_VOTAVEL==13) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_ext2014 <-
+eleicao_2014_exterior%>%
+  filter(NUM_VOTAVEL==45) %>%
+  group_by(NUM_VOTAVEL,QTDE_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+hist_inc_ext2018 <-
+eleicao_2018_exterior%>%
+  filter(NR_VOTAVEL==13) %>%
+  group_by(NR_VOTAVEL,QT_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QT_VOTOS),
+                 colour="black",
+                 fill="orange")
+
+hist_op_ext2018 <-
+eleicao_2018_exterior%>%
+  filter(NR_VOTAVEL==17) %>%
+  group_by(NR_VOTAVEL,QT_VOTOS) %>%
+  ggplot()+
+  geom_histogram(aes(x=QT_VOTOS),
+                 colour="black",
+                 fill="blue")
+
+ggarrange(hist_inc_br2002,hist_op_br2002,
+          hist_inc_br2006,hist_op_br2006,
+          hist_inc_br2010,hist_op_br2010,
+          hist_inc_br2014,hist_op_br2014,
+          hist_inc_br2018,hist_op_br2018,
+          labels = c(2002,2002,
+                     2006,2006
+                     ,2010,2010,
+                     2014,2014,
+                     2018,2018),
+          ncol = 2,nrow = 5)
+
+ggarrange(hist_inc_ext2002,hist_op_ext2002,
+          hist_inc_ext2006,hist_op_ext2006,
+          hist_inc_ext2010,hist_op_ext2010,
+          hist_inc_ext2014,hist_op_ext2014,
+          hist_inc_ext2018,hist_op_ext2018,
+          labels = c(2002,2002,
+                     2006,2006
+                     ,2010,2010,
+                     2014,2014,
+                     2018,2018),
+          ncol = 2,nrow = 5)
 ```
 
 
