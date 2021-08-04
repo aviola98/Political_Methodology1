@@ -28,7 +28,8 @@ eleicao_2002_exterior <- read_delim("votacao_secao_2002_ZZ.txt",
 
 eleicao_2002_exterior <-
 eleicao_2002_exterior %>%
-  filter(NUM_TURNO==2)
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2002ext <-  100*(20772/36043)
 pct_voto_inc2002ext <-   100*(13742/36043)
@@ -42,7 +43,8 @@ eleicao_2002_br <- read_delim("votacao_secao_2002_BR.txt",
                            col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
 
 eleicao_2002_br <- eleicao_2002_br %>%
-  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2)
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2) %>%
+  select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2002br <-  100*(52772592/91628216)
 pct_voto_inc2002br <-   100*(33356997/91628216)
@@ -60,7 +62,8 @@ eleicao_2006_exterior <- read_delim("votacao_secao_2006_ZZ.txt",
 
 eleicao_2006_exterior <-
 eleicao_2006_exterior %>%
-  filter(NUM_TURNO==2)
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2006ext <-  100*(20912/40883)
 pct_voto_inc2006ext <-  100*(17948/40883)
@@ -74,7 +77,8 @@ eleicao_2006_br <- read_delim("votacao_secao_2006_BR.txt",
 
 
 eleicao_2006_br <- eleicao_2006_br %>%
-  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2)
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
   
 
 pct_voto_opo2006br <-  100*(37543178/101998221)
@@ -93,7 +97,8 @@ eleicao_2010_exterior <- read_delim("votacao_secao_2010_ZZ.txt",
 
 eleicao_2010_exterior <-
 eleicao_2010_exterior %>%
-  filter(NUM_TURNO==2)
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2010ext <-  100*(47913/85591)
 pct_voto_inc2010ext <-  100*(33112/85591)
@@ -108,7 +113,8 @@ eleicao_2010_br <- read_delim("votacao_secao_2010_BR.txt",
 
 eleicao_2010_br <-
 eleicao_2010_br %>%
-  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2)
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2010br <-  100*(43638458/106465483)
 pct_voto_inc2010br <-  100*(55691399/106465483)
@@ -127,7 +133,8 @@ eleicao_2014 <- read_delim("votacao_secao_2014_BR.txt",
 eleicao_2014_exterior <-
 eleicao_2014 %>%
   filter(NUM_TURNO==2 
-         & SIGLA_UF == "ZZ")
+         & SIGLA_UF == "ZZ") %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2014ext <-  100*(104121/141873)
 pct_voto_inc2014ext <-  100*(31059/141873)
@@ -135,7 +142,8 @@ voto_branco2014ext  <-  100*(3159/141873)
 voto_null2014ext  <-    100*(3534/141873)
 
 eleicao_2014_br <- eleicao_2014 %>%
-  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2)
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
 
 pct_voto_opo2014br <-  100*(50937034/112542006)
 pct_voto_inc2014br <-  100*(54470059/112542006)
@@ -400,6 +408,80 @@ pct_voto_inc2018br <-  100*(46987176/115732285)
 voto_branco2018br  <-  100*(2479352/115732285)
 voto_null2018br  <-    100*(8599581/115732285)
 ```
+
+```{r}
+
+br_2018 <-
+  eleicao_2018_BR %>%
+  rename("NUM_TURNO"="NR_TURNO",
+         "SIGLA_UF"="SG_UF",
+         "CODIGO_MUNICIPIO"="CD_MUNICIPIO",
+         "NOME_MUNICIPIO"="NM_MUNICIPIO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_VOTAVEL"="NR_VOTAVEL",
+         "QTDE_VOTOS"="QT_VOTOS") %>%
+  select(-DS_ELEICAO,
+         -NM_VOTAVEL)
+
+exterior_2018 <-
+  eleicao_2018_exterior %>%
+  rename("NUM_TURNO"="NR_TURNO",
+         "SIGLA_UF"="SG_UF",
+         "CODIGO_MUNICIPIO"="CD_MUNICIPIO",
+         "NOME_MUNICIPIO"="NM_MUNICIPIO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_VOTAVEL"="NR_VOTAVEL",
+         "QTDE_VOTOS"="QT_VOTOS") %>%
+  select(-DS_ELEICAO,
+         -NM_VOTAVEL,
+         -PAIS,
+         -REGIAO)
+
+binded_br<-
+rbind(eleicao_2006_br,eleicao_2002_br,eleicao_2010_br,eleicao_2014_br,br_2018)
+
+exterior_2018
+eleicao_2002_exterior
+binded_ext <-
+  rbind(eleicao_2002_exterior,
+        eleicao_2006_exterior,
+        eleicao_2010_exterior,
+        eleicao_2014_exterior,
+        exterior_2018)
+
+binded_br <-
+binded_br %>%
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSICAO",
+                        NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
+                        NUM_VOTAVEL==17 ~ "OPOSIÇÃO"))
+
+binded_ext <-
+  binded_ext %>%
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSICAO",
+                        NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
+                        NUM_VOTAVEL==17 ~ "OPOSIÇÃO"))
+
+
+hist_op_
+binded_br %>%
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="OPOSIÇÃO") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS))
+```
+
+
+
 
 ```{r}
 tabela_1 <- tibble(ANO=c(2002,2006,2010,2014,2018),
