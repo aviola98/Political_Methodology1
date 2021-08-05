@@ -479,7 +479,8 @@ binded_br %>%
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
-                 fill="blue") +
+                 fill="blue",
+                 binwidth=1) +
   ggtitle("Oposição (Brasil)")
 
 hist_inc_br <- 
@@ -490,7 +491,8 @@ hist_inc_br <-
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
-                 fill="orange")+
+                 fill="orange",
+                  binwidth=1)+
   ggtitle("Incumbente (Brasil)")
 
 hist_op_ext <-
@@ -501,7 +503,8 @@ hist_op_ext <-
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
-                 fill="blue") +
+                 fill="blue",
+                  binwidth=1) +
   ggtitle("Oposição (Exterior)")
 
 hist_inc_ext <-
@@ -512,12 +515,9 @@ hist_inc_ext <-
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
-                 fill="orange") +
+                 fill="orange",
+                  binwidth=1) +
   ggtitle("Incumbente (Exterior)")
-
-ggarrange(hist_inc_br,hist_inc_ext,
-          hist_op_br,hist_op_ext,
-          ncol = 2,nrow = 2)
 
 ```
 
@@ -548,7 +548,6 @@ tabela_1 %>%
         col.names = c("Ano","% voto incumbente(Brasil)", "% de voto oposição (Brasil)", "% de voto incumbente(Exterior)",
                       "% de voto oposição(Exterior)", "% de voto branco/nulo (Brasil)","% de voto branco/nulo (Exterior)"))
 
-tabela_1_display
 ```
 
 ```{r}
@@ -660,8 +659,6 @@ Tabela_2_display <-
                       "Mediana (Brasil) ","Mediana (Exterior) ",
                       "Desvio Padrão (Brasil) ","Desvio Padrão (Exterior) "))
 
-tabela_1_display
-Tabela_2_display
 ```
 
 
@@ -697,8 +694,9 @@ O banco para os dados referentes às eleições realizadas em solo nacional poss
 O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto, a presença de um *n* grande em ambos os bancos garante que a distribuição tenda a ser uma distribuição normal devido ao Teorema do Limite Central (TLC) e, também, garante que a média da amostra selecionada (as eleições de 2002,2006,2010,2014 e 2018) se aproxime da média da população para ambos os casos, como diz a Lei dos Grandes Números (LGN). Essas tendência à distribuição normal podem ser vistas nos Hisogramas abaixo: 
 
 ```{r}
-binded_br
-binded_ext
+ggarrange(hist_inc_br,hist_inc_ext,
+          hist_op_br,hist_op_ext,
+          ncol = 2,nrow = 2)
 ```
 
 
