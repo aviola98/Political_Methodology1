@@ -661,6 +661,7 @@ Tabela_2_display <-
                       "Mediana (Brasil) ","Mediana (Exterior) ",
                       "Desvio Padrão (Brasil) ","Desvio Padrão (Exterior) "))
 
+tabela_1_display
 Tabela_2_display
 ```
 
@@ -698,5 +699,23 @@ Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos e
 
 
 É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
+
+
+3.  **Modelagem**
+
+No que diz respeito à modelagem dos dados, é necessário se ater aos detalhes das variáveis sendo utilizadas.
+
+Pelo fato de que a variável dependente Y ser uma variável binária ("incumbente" ou "oposição"), *i.e* comporta-se na lógica de "sucesso" ou "fracasso"(ou, melhor, de 0 ou 1), e estamos interessados nas chances disso ocorrer em uma eleição, podemos modelar o problema usando a Distribuição de Bernoulli.
+
+Desta forma, a probabilidade do eleitor brasileiro no exterior em uma eleição votar na oposição é dada por $\phi_i$ e a probabilidade do eleitor brasileiro votar no incumbente é dada por $1 - \phi_i$. Assim, modela-se o problema nos termos da equação abaixo: 
+
+$$f(Y_i = y_i|\phi_i) = \left\{
+    \begin{array}{cc}
+                \phi_i & \mathrm{se\ } Y_i=1 \\
+                1-\phi_i & \mathrm{se\ } Y_i=0 \\
+        \end{array} 
+    \right.$$
+
+Onde a probabilidade de $Y_i$ (voto brasileiro no exterior) é igual à 1 ("voto na oposição") quando o parâmetro assume o valor de $\phi_i$ e é igual à 0 ("voto no incumbente") quando o parâmetro assume o valor de $1-\phi_i$.
 
 
