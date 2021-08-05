@@ -690,7 +690,17 @@ Todo o exposto revela a importância de se estudar o voto imigrante e de como el
 
 Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes às eleições presidenciais entre 2002 e 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
 
-O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos.
+O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Municipio, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos e (X) se o candidato é oposição ou incunbente. 
+
+O banco para os dados referentes às eleições realizadas em solo nacional possui um total de 7.715524 observações (*n*=7.715524) enquanto que o banco referente às eleições realizadas no exterior possui um total de 10.464 observações (*n*=10.464). 
+
+O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto, a presença de um *n* grande em ambos os bancos garante que a distribuição tenda a ser uma distribuição normal devido ao Teorema do Limite Central (TLC) e, também, garante que a média da amostra selecionada (as eleições de 2002,2006,2010,2014 e 2018) se aproxime da média da população para ambos os casos, como diz a Lei dos Grandes Números (LGN). Essas tendência à distribuição normal podem ser vistas nos Hisogramas abaixo: 
+
+```{r}
+binded_br
+binded_ext
+```
+
 
 No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essa eleição 
 
