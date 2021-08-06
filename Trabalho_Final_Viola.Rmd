@@ -457,7 +457,15 @@ O banco foi separado em dois, um para os votos em solo brasileiro e outro para o
 
 O banco para os dados referentes às eleições realizadas em solo nacional possui um total de 7.715524 observações (*n*=7.715524) enquanto que o banco referente às eleições realizadas no exterior possui um total de 10.464 observações (*n*=10.464). 
 
-O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto, a presença de um *n* grande em ambos os bancos garante que a distribuição tenda a ser uma distribuição normal devido ao Teorema do Limite Central (TLC) e, também, garante que a média da amostra selecionada (as eleições de 2002,2006,2010,2014 e 2018) se aproxime da média da população para ambos os casos, como diz a Lei dos Grandes Números (LGN).
+O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto,espera-se uma certa variabilidade dos dados pelo fato de estarmos lidando com dados do mundo real.
+
+No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essa eleição 
+
+Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment* dois anos antes.
+
+
+3.  **Análise das Estatísticas Descritivas**
+
 
 Com a finalidade de analisar a distribuição da variável Y (a quantidade de votos distribuida para o incumbente e a oposição) analisando a sua frequência relativa, foram realizados quatro histogramas, cada um mostrando a frequência de Y para cada caso (*i.e.*, Voto no Incumbente no Brasil, Voto no Incumbente no Exterior, Voto na Oposição no Brasil e Voto na Oposição no Exterior).
 
@@ -500,13 +508,7 @@ Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-
 
 
 
-No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essa eleição 
 
-
-Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment* dois anos antes.
-
-
-É importante frisar a diferença no *n* populacional dos dois grupos no momento de realizar a comparação, sendo o número de votantes no Brasil proporcionalmente maior do que o número de votantes do exterior, o que fez com que fosse necessária a utilização de uma padronização dos dados no momento de realizar a análise.
 
 
 3.  **Modelagem**
