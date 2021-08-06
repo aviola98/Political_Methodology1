@@ -475,8 +475,17 @@ Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que
 Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (*i.e.*, mostram como é uma observação típica) e uma medida de dispersão (*i.e.*, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
 
 ```{r}
-binded_br
+bix_bor <-
 binded_br %>%
+  ggplot(aes(x=CASE,
+                   y=QTDE_VOTOS,
+                   fill=CASE))+
+  geom_boxplot()
+
+
+
+  box_br<-
+binded_ext %>%
   ggplot()+
   geom_boxplot(aes(x=CASE,
                    y=QTDE_VOTOS))
