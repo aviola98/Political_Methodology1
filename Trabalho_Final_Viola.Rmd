@@ -224,7 +224,7 @@ binded_ext <-
 
 binded_br <-
 binded_br %>%
-  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSICAO",
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSIÇÃO",
                         NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
                         NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
                         NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
@@ -232,7 +232,7 @@ binded_br %>%
 
 binded_ext <-
   binded_ext %>%
-  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSICAO",
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSIÇÃO",
                         NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
                         NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
                         NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
@@ -286,9 +286,6 @@ hist_inc_ext <-
                   fill="orange",
                   binwidth=20) +
   ggtitle("Incumbente (Exterior)")
-
-modelsummary::datasummary(binded_br)
-modelsummary::datasummary(binded_ext)
 ```
 
 
@@ -317,7 +314,6 @@ tabela_1 %>%
   kable(caption = "Porcentagem de votos no Brasil e Exterior nas eleições presidenciais brasileiras entre 2002-2018",
         col.names = c("Ano","% voto incumbente(Brasil)", "% de voto oposição (Brasil)", "% de voto incumbente(Exterior)",
                       "% de voto oposição(Exterior)", "% de voto branco/nulo (Brasil)","% de voto branco/nulo (Exterior)"))
-
 ```
 
 ```{r}
@@ -461,13 +457,36 @@ O banco foi separado em dois, um para os votos em solo brasileiro e outro para o
 
 O banco para os dados referentes às eleições realizadas em solo nacional possui um total de 7.715524 observações (*n*=7.715524) enquanto que o banco referente às eleições realizadas no exterior possui um total de 10.464 observações (*n*=10.464). 
 
-O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto, a presença de um *n* grande em ambos os bancos garante que a distribuição tenda a ser uma distribuição normal devido ao Teorema do Limite Central (TLC) e, também, garante que a média da amostra selecionada (as eleições de 2002,2006,2010,2014 e 2018) se aproxime da média da população para ambos os casos, como diz a Lei dos Grandes Números (LGN). Essas tendência à distribuição normal podem ser vistas nos Hisogramas abaixo: 
+O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto, a presença de um *n* grande em ambos os bancos garante que a distribuição tenda a ser uma distribuição normal devido ao Teorema do Limite Central (TLC) e, também, garante que a média da amostra selecionada (as eleições de 2002,2006,2010,2014 e 2018) se aproxime da média da população para ambos os casos, como diz a Lei dos Grandes Números (LGN).
+
+Com a finalidade de analisar a distribuição da variável Y (a quantidade de votos distribuida para o incumbente e a oposição) analisando a sua frequência relativa, foram realizados quatro histogramas, cada um mostrando a frequência de Y para cada caso (*i.e.*, Voto no Incumbente no Brasil, Voto no Incumbente no Exterior, Voto na Oposição no Brasil e Voto na Oposição no Exterior).
 
 ```{r}
 ggarrange(hist_inc_br,hist_inc_ext,
           hist_op_br,hist_op_ext,
           ncol = 2,nrow = 2)
 ```
+
+Os histogramas acima apresentados revelam que os dados referentes às quantidade de votos pra incumbente e oposição tanto para o Brasil como para o Exterior são assimétricos à direita, mostrando que se tem uma variabilidade na quantidade de votos em ambas as situações, fazendo com que os dados não estejam concentrados em torno da média.
+
+Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que a média, uma vez que os dados em questão estão assimétricos, o que leva o valor da média a ser influenciado por *outliers* fazendo com que esse valor seja levado para determinada direção se na amostra houver um valor muito maior ou menor do que o restante das observações, o que pode levar a algumas interpretações distorcidas no momento de comparar. Assim, a média esta localizada na direção da assimetria da curva em relação à mediana.
+
+
+Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (*i.e.*, mostram como é uma observação típica) e uma medida de dispersão (*i.e.*, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
+
+```{r}
+binded_br
+binded_br %>%
+  ggplot()+
+  geom_boxplot(aes(x=CASE,
+                   y=QTDE_VOTOS))
+```
+
+As estatísticas mostram que a porcentagem de votos apresenta uma forte variação devido ao desvio padrão alto em ambos os casos. No caso do voto incumbente se tem um desvio padrão de 8.47 e de 9.18 para o Brasil e Exterior respectivamente e no caso do voto para a oposição se tem um desvio padrão de 8.05 e 8.8 para o Brasil e Exterior respectivamente. Nota-se uma variabilidade ligeiramente maior nos dados referentes ao voto no exterior. Importante ressaltar que a porcentagem de voto branco e nulo apresentam uma variabilidade muito baixa, sendo 1.5 e 1.4 respectivamente, devido a *COMPLETAR*
+
+Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-se que o uso da mediana acaba sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque 
+
+
 
 
 No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essa eleição 
