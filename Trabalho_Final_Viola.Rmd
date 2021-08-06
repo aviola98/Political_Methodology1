@@ -248,7 +248,7 @@ binded_br %>%
   geom_histogram(aes(x=QTDE_VOTOS),
                  colour="black",
                  fill="blue",
-                 binwidth=200) +
+                 binwidth=20) +
   ggtitle("Oposição (Brasil)")
 
 hist_inc_br <- 
@@ -260,7 +260,7 @@ hist_inc_br <-
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
                  fill="orange",
-                  binwidth=200)+
+                  binwidth=20)+
   ggtitle("Incumbente (Brasil)")
 
 hist_op_ext <-
@@ -272,7 +272,7 @@ hist_op_ext <-
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
                  fill="blue",
-                  binwidth=200) +
+                  binwidth=20) +
   ggtitle("Oposição (Exterior)")
 
 hist_inc_ext <-
@@ -283,10 +283,12 @@ hist_inc_ext <-
   ggplot()+
   geom_histogram(aes(x=QTDE_VOTOS),
                   colour="black",
-                 fill="orange",
-                  binwidth=200) +
+                  fill="orange",
+                  binwidth=20) +
   ggtitle("Incumbente (Exterior)")
 
+modelsummary::datasummary(binded_br)
+modelsummary::datasummary(binded_ext)
 ```
 
 
