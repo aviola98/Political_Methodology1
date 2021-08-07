@@ -509,6 +509,10 @@ A presença dos valores atípicos em ambos os *boxplots* se dá pelo fato da dis
 
 Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (*i.e.*, mostram como é uma observação típica) e uma medida de dispersão (*i.e.*, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
 
+```{r}
+Tabela_2_display
+```
+
 
 As estatísticas mostram que a porcentagem de votos apresenta uma forte variação devido ao desvio padrão alto em ambos os casos. No caso do voto incumbente se tem um desvio padrão de 8.47 e de 9.18 para o Brasil e Exterior respectivamente e no caso do voto para a oposição se tem um desvio padrão de 8.05 e 8.8 para o Brasil e Exterior respectivamente. Nota-se uma variabilidade ligeiramente maior nos dados referentes ao voto no exterior. Importante ressaltar que a porcentagem de voto branco e nulo apresentam uma variabilidade muito baixa, sendo 1.5 e 1.4 respectivamente, devido a *COMPLETAR*
 
