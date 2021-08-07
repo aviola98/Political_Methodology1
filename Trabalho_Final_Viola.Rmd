@@ -503,9 +503,9 @@ ggarrange(box_br,box_ext,
 
 ```
 
+Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50% centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro à votar na oposição.
 
-
-
+A presença dos valores atípicos em ambos os *boxplots* se dá pelo fato da distribuição ser assimétrica, como mostrado anteriormente.
 
 Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (*i.e.*, mostram como é uma observação típica) e uma medida de dispersão (*i.e.*, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
 
@@ -520,7 +520,7 @@ Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-
 
 
 
-3.  **Modelagem**
+4.  **Modelagem**
 
 No que diz respeito à modelagem dos dados, é necessário se ater aos detalhes das variáveis sendo utilizadas.
 
@@ -537,4 +537,23 @@ $$f(Y_i = y_i|\phi_i) = \left\{
 
 Onde a probabilidade de $Y_i$ (voto brasileiro no exterior) é igual à 1 ("voto na oposição") quando o parâmetro assume o valor de $\phi_i$ e é igual à 0 ("voto no incumbente") quando o parâmetro assume o valor de $1-\phi_i$.
 
+
+5.  **Teste de Hipótese**
+
+
+Com a finalidade de testar a relação foi realizado o seguinte teste de Hipótese:
+
+$$
+H_0: \mu{\text{(votos na oposição|voto no exterior)}} = \mu{\text{(votos na oposição|votos no Brasil)}}
+$$
+
+$$
+H_1: \mu{\text{(votos na oposição|voto no exterior)}} > \mu{\text{(votos na oposição|votos no Brasil)}}
+$$
+
+Os resultados estão apresentados na tabela abaixo: 
+
+```{r}
+#Hipotesis test
+```
 
