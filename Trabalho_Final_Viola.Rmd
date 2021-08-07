@@ -432,7 +432,7 @@ Tabela_2_display <-
 
 ### Resumo 
 
-O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para explorar a relação entre o eleitor brasileiro residir no exterior e o voto na oposição, partindo da ideia de que o voto brasileiro no exterior tende mais à direita do que o voto brasileiro no Brasil. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação do voto (incumbente ou oposição).
+O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a disciplina para explorar a relação entre o eleitor brasileiro residir no exterior e o voto na oposição para as eleições presidenciais do período de 2002 à 2018. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação do voto (incumbente ou oposição).
 
 1.    **Introdução** 
 
@@ -445,7 +445,9 @@ Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no 
 
 Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo a votar na oposição (Rosca,2021; Turcu & Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual emigram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc & Doyle, 2004; Turcu & Rosca, 2019).
 
-Todo o exposto revela a importância de se estudar o voto imigrante e de como ele se comporta nas eleições de seus países de origem.
+
+A diferença de voto entre o eleitor residente no estrangeiro e no Brasil pode estar relacionada ao fato de que muitas vezes o eleitor imigrante tende a votar na oposição, uma vez que pode ter deixado o país durante um período de dificuldades econômicas associada ao incumbente, o que está relacionado, de certa forma, com a Teoria do Voto Econômico, uma vez que a mesma postula que o eleitor tende a premiar ou não o incumbente tendo em base a performace econômica do mesmo.
+
 
 
 
@@ -459,7 +461,7 @@ O banco para os dados referentes às eleições realizadas em solo nacional poss
 
 O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto,espera-se uma certa variabilidade dos dados pelo fato de estarmos lidando com dados do mundo real.
 
-No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essa eleição 
+No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes à essas eleições apresentarem os dados do segundo para as eleições ocorridas no exterior.
 
 Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classifica-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeatchment* dois anos antes.
 
@@ -500,12 +502,23 @@ binded_ext %>%
 
 ggarrange(box_br,box_ext,
           ncol = 2,nrow = 1)
-
 ```
 
 Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50% centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro à votar na oposição.
 
 A presença dos valores atípicos em ambos os *boxplots* se dá pelo fato da distribuição ser assimétrica, como mostrado anteriormente.
+
+Também foi realizada uma tabela de frequência com a porcentagem de votos para incumbente e oposição no Brasil e Exterior para cada ano eleitoral analisado: 
+```{r}
+tabela_1_display
+```
+
+A tabela acima mostra que, no geral, a porcentagem de votos no Brasil para incumbente e oposição apresentou uma certa diferença até as eleições de 2014. Esse estreitamento na diferença de votos entre oposição e incumbente pode ser um resultado direto dos escandalos de corrupção que abalaram o governo do Partido dos Trabalhadores e dos protestos ocorridos em 2013. 
+
+No que diz respeito ao voto no exterior, nota-se sempre uma diferença notável entre os votos depositados para o incumbente e os votos depositados para a oposição, diferença essa que tende sempre a ser favorável para a oposição.
+
+ADICIOONAR VOTO NULO?
+
 
 Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (*i.e.*, mostram como é uma observação típica) e uma medida de dispersão (*i.e.*, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
 
@@ -516,12 +529,17 @@ Tabela_2_display
 
 As estatísticas mostram que a porcentagem de votos apresenta uma forte variação devido ao desvio padrão alto em ambos os casos. No caso do voto incumbente se tem um desvio padrão de 8.47 e de 9.18 para o Brasil e Exterior respectivamente e no caso do voto para a oposição se tem um desvio padrão de 8.05 e 8.8 para o Brasil e Exterior respectivamente. Nota-se uma variabilidade ligeiramente maior nos dados referentes ao voto no exterior. Importante ressaltar que a porcentagem de voto branco e nulo apresentam uma variabilidade muito baixa, sendo 1.5 e 1.4 respectivamente, devido a *COMPLETAR*
 
-Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-se que o uso da mediana acaba sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque 
+
+Apesar de que ao analisar o histograma se tenha chegado a conclusão de que o uso da mediana acabaria sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque a média acaba sendo de certa forma influenciada pelo valor dos *outliers*, ao analisar a tabela nota-se que os valores da média e da mediana acabam sendo muito próximo de si (com exceção da média e mediana de votos no incumbente no exterior, que acabam tendo uma distância de relativamente alta, sendo 33.8 e 38.1 respectivamente). 
 
 
+Assim, ao se comparar as médias nota-se que a média de votos no incumbente e na oposição, para as eleições ocorridas em solo brasileiro, tende a ser quase o mesmo valor (46.98 e 46.1 respectivamente), o que indica que não se tem muita diferença na tendência de voto do eleitorado brasileiro residente no próprio país. O mesmo pode ser dito ao olhar a mediana, onde se tem uma distância de aproximadamente três pontos entre o valor para o voto no incumbente e o voto na oposição (48.4 e 45.2 aproximadamente), o que dá a ideia de eleições competitivas com uma ligeira tendência a se premiar o incumbente.
 
+Ao olhar as médias de votos no incumbente e na oposição para os votos de brasileiros residentes no exterior, tem-se uma diferença notável em favor da oposição, tendo uma média de 60.72 em comparação com o incumbente, que possui uma média de 33.86. A tendência em favor da oposição para eleitores brasileiros no exterior se confirma ao analisarmos a mediana. A diferença entre medianas tem uma magnitude muito próxima à diferença entre as duas médias, tendo uma leve diminuida, sendo a mediana para os votos na oposição de valor 57.6 e a mediana para votos no incumbente 38.1.
 
+Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-se que o uso da mediana acaba sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque a média acaba sendo de certa forma influenciada pelo valor dos *outliers*.
 
+Contudo, tem-se um problema ao fazer somente esta análise. O $X_1$ e o $X_2$ não são exôgenos, logo, não se pode concluir um teste e não se pode concluir que são eles que provocam o efeito em $Y$ ou se é outra coisa. Para contornar esse impasse, foi realizado um Teste de Hipótesis, que será apresentado nas próximas sessões.
 
 
 4.  **Modelagem**
