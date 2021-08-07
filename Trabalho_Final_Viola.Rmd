@@ -563,8 +563,7 @@ Onde a probabilidade de $Y_i$ (voto brasileiro no exterior) é igual à 1 ("voto
 5.  **Teste de Hipótese**
 
 
-Com a finalidade de testar a relação foi realizado o seguinte teste de Hipótese:
-
+Com a finalidade de testar a relação foi realizado um Teste de Hipótesis de tipo $\chi²$, uma vez que 
 $$
 H_0: \mu{\text{(votos na oposição|voto no exterior)}} = \mu{\text{(votos na oposição|votos no Brasil)}}
 $$
@@ -577,5 +576,7 @@ Os resultados estão apresentados na tabela abaixo:
 
 ```{r}
 #Hipotesis test
+
+chi  <- with(Tabela_2, )
 ```
 
