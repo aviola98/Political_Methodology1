@@ -577,6 +577,51 @@ $$
 Primeiramente se procedeu a fazer uma tabela de contingência para cada eleição.
 
 ```{r}
+con_2002 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(38.1,36.4,74.5),
+                   ESPERADO_INCUMBENTE=c(37.6,36.9,NA),
+                   OPOSICAO=c(57.6,57.6,115.2),
+                   ESPERADO_OPOSICAO=c(58.1,57.1,NA),
+                   TOT=c(95.7,94,189.7)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2002")
+
+con_2006 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(43.9,57.2,101.1),
+                   ESPERADO_INCUMBENTE=c(50.8,50.3,NA),
+                   OPOSICAO=c(51.2,36.8,88),
+                   ESPERADO_OPOSICAO=c(44.3,43.7,NA),
+                   TOT=c(95.1,94,189.1)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2006")
+
+con_2010 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(38.7,52.3,91),
+                   ESPERADO_INCUMBENTE=c(45.8,45.2,NA),
+                   OPOSICAO=c(56,41,97),
+                   ESPERADO_OPOSICAO=c(48.9,48.1,NA),
+                   TOT=c(94.7,93.3,188)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2010")
+
+con_2014 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(21.9,48.4,70.3),
+                   ESPERADO_INCUMBENTE=c(35.4,34.9,NA),
+                   OPOSICAO=c(73.4,45.3,118.7),
+                   ESPERADO_OPOSICAO=c(59.9,58.8,NA),
+                   TOT=c(95.3,93.7,189)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2014")
+
+con_2018 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(26.7,40.6,67.3),
+                   ESPERADO_INCUMBENTE=c(34,33.3,NA),
+                   OPOSICAO=c(65.5,49.8,115.3),
+                   ESPERADO_OPOSICAO=c(58.2,57.1,NA),
+                   TOT=c(92.2,90.4,182.6)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2018")
+
 
 ```
 
