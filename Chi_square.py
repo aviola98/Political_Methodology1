@@ -21,3 +21,23 @@ data = {
 
 df = pd.DataFrame(data)
 print(df)
+
+chiVal, piVal, df, exp = chi2_contingency(df)
+chiVal, piVal, df, exp
+#p>5% we can't reject the null hypotesis
+
+#2006
+data = {'Incumbente':[43.9,57.2],
+       'Esp':[50.8,50.3],
+       'Oposição':[51.2,36.8],
+       'Esp2':[44.3,43.7]}
+
+
+df = pd.DataFrame(data)
+
+print(df)
+
+chiVal, piVal, df, exp = chi2_contingency(df)
+chiVal, piVal, df, exp
+#p-value<5% we can reject the null Hypotesis
+
