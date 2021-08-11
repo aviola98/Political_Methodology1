@@ -1,0 +1,648 @@
+\documentclass{article}
+\usepackage{setspace}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+
+\title{Trabalho Final da Disciplina}
+\author{André Viola}
+
+\begin{document}
+
+  \onehalfspacing
+\SweaveOpts{concordance=TRUE}
+\maketitle
+
+
+<<echo=F, warning=F, message=F>>=
+library(tidyverse)
+library(knitr)
+library(cowplot)
+library(ggpubr)
+@
+
+<<echo=F, warning=F, message=F>>=
+#2002
+eleicao_2002_exterior <- read_delim("votacao_secao_2002_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2002_exterior <-
+eleicao_2002_exterior %>%
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2002ext <-  100*(20772/36043)
+pct_voto_inc2002ext <-   100*(13742/36043)
+voto_branco2002ext  <-    100*(749/36043)
+voto_null2002ext  <-    100*(780/36043)
+
+
+eleicao_2002_br <- read_delim("votacao_secao_2002_BR.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2002_br <- eleicao_2002_br %>%
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2) %>%
+  select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2002br <-  100*(52772592/91628216)
+pct_voto_inc2002br <-   100*(33356997/91628216)
+voto_branco2002br  <-      100*(1727011/91628216)
+voto_null2002br  <-    100*(3771358/91628216)
+x <- 100*(258/91628216)
+@
+
+<<echo=F, warning=F, message=F>>=
+#2006
+eleicao_2006_exterior <- read_delim("votacao_secao_2006_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2006_exterior <-
+eleicao_2006_exterior %>%
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2006ext <-  100*(20912/40883)
+pct_voto_inc2006ext <-  100*(17948/40883)
+voto_branco2006ext  <-  100*(985/40883)
+voto_null2006ext  <-    100*(1038/40883)
+
+eleicao_2006_br <- read_delim("votacao_secao_2006_BR.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+
+eleicao_2006_br <- eleicao_2006_br %>%
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+  
+
+pct_voto_opo2006br <-  100*(37543178/101998221)
+pct_voto_inc2006br <-   100*(58295042/101998221)
+voto_branco2006br  <-      100*(1351448/101998221)
+voto_null2006br  <-    100*(4808553/101998221)
+@
+
+<<echo=F, warning=F, message=F>>=
+#2010
+eleicao_2010_exterior <- read_delim("votacao_secao_2010_ZZ.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2010_exterior <-
+eleicao_2010_exterior %>%
+  filter(NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2010ext <-  100*(47913/85591)
+pct_voto_inc2010ext <-  100*(33112/85591)
+voto_branco2010ext  <-  100*(2313/85591)
+voto_null2010ext    <-  100*(2253/85591)
+
+
+eleicao_2010_br <- read_delim("votacao_secao_2010_BR.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2010_br <-
+eleicao_2010_br %>%
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO==2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2010br <-  100*(43638458/106465483)
+pct_voto_inc2010br <-  100*(55691399/106465483)
+voto_branco2010br  <-  100*(2449553/106465483)
+voto_null2010br   <-  100*(4685801/106465483)
+@
+
+<<echo=F, warning=F, message=F>>=
+#2014
+
+eleicao_2014 <- read_delim("votacao_secao_2014_BR.txt",
+                            delim = ";",
+                           locale=locale(encoding="latin1"),
+                           col_names=c("DATA_GERACAO","HORA_GERACAO","ANO_ELEICAO","NUM_TURNO","DESCRICAO_ELEICAO","SIGLA_UF","SIGLA_UE","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NUM_ZONA","NUM_SECAO","CODIGO_CARGO","DESCRICAO_CARGO","NUM_VOTAVEL","QTDE_VOTOS"))
+
+eleicao_2014_exterior <-
+eleicao_2014 %>%
+  filter(NUM_TURNO==2 
+         & SIGLA_UF == "ZZ") %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2014ext <-  100*(104121/141873)
+pct_voto_inc2014ext <-  100*(31059/141873)
+voto_branco2014ext  <-  100*(3159/141873)
+voto_null2014ext  <-    100*(3534/141873)
+
+eleicao_2014_br <- eleicao_2014 %>%
+  filter(SIGLA_UF != "ZZ" & NUM_TURNO == 2) %>%
+   select(-DATA_GERACAO,-HORA_GERACAO,-DESCRICAO_ELEICAO,-SIGLA_UE,-NUM_SECAO,-CODIGO_CARGO,-SIGLA_UE)
+
+pct_voto_opo2014br <-  100*(50937034/112542006)
+pct_voto_inc2014br <-  100*(54470059/112542006)
+voto_branco2014br  <-  100*(1918660/112542006)
+voto_null2014br  <-    100*(5216253/112542006)
+@
+
+<<echo=F, warning=F, message=F>>=
+#2018
+
+eleicao_2018 <- read_delim("votacao_secao_2018_BR.csv",
+                           delim = ";",
+                           locale=locale(encoding="latin1"))
+
+eleicao_2018_exterior <-                            
+eleicao_2018 %>%
+  filter(SG_UF == "ZZ" & NR_TURNO==2) %>%
+  select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE) 
+
+eleicao_2018_BR <- eleicao_2018 %>%
+  filter(SG_UF != "ZZ" & NR_TURNO==2) %>%
+  select(-DT_GERACAO,-HH_GERACAO,-CD_TIPO_ELEICAO,-NM_TIPO_ELEICAO,-CD_ELEICAO,-DT_ELEICAO,-TP_ABRANGENCIA,-NM_UE,-NR_SECAO,-CD_CARGO,-SG_UE)
+
+pct_voto_opo2018ext <-  100*(131671/201166)
+pct_voto_inc2018ext <-  100*(53730/201166)
+voto_branco2018ext  <-  100*(7241/201166)
+voto_null2018ext  <-    100*(8524/201166)
+
+pct_voto_opo2018br <-  100*(57666176/115732285)
+pct_voto_inc2018br <-  100*(46987176/115732285)
+voto_branco2018br  <-  100*(2479352/115732285)
+voto_null2018br  <-    100*(8599581/115732285)
+@
+
+<<echo=F, warning=F, message=F>>=
+br_2018 <-
+  eleicao_2018_BR %>%
+  rename("NUM_TURNO"="NR_TURNO",
+         "SIGLA_UF"="SG_UF",
+         "CODIGO_MUNICIPIO"="CD_MUNICIPIO",
+         "NOME_MUNICIPIO"="NM_MUNICIPIO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_VOTAVEL"="NR_VOTAVEL",
+         "QTDE_VOTOS"="QT_VOTOS") %>%
+  select(-DS_ELEICAO,
+         -NM_VOTAVEL)
+
+exterior_2018 <-
+  eleicao_2018_exterior %>%
+  rename("NUM_TURNO"="NR_TURNO",
+         "SIGLA_UF"="SG_UF",
+         "CODIGO_MUNICIPIO"="CD_MUNICIPIO",
+         "NOME_MUNICIPIO"="NM_MUNICIPIO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_ZONA"="NR_ZONA",
+         "DESCRICAO_CARGO"="DS_CARGO",
+         "NUM_VOTAVEL"="NR_VOTAVEL",
+         "QTDE_VOTOS"="QT_VOTOS") %>%
+  select(-DS_ELEICAO,
+         -NM_VOTAVEL
+         )
+
+binded_br<-
+rbind(eleicao_2006_br,eleicao_2002_br,eleicao_2010_br,eleicao_2014_br,br_2018)
+
+
+binded_ext <-
+  rbind(eleicao_2002_exterior,
+        eleicao_2006_exterior,
+        eleicao_2010_exterior,
+        eleicao_2014_exterior,
+        exterior_2018)
+
+binded_br <-
+binded_br %>%
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSIÇÃO",
+                        NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
+                        NUM_VOTAVEL==17 ~ "OPOSIÇÃO"))
+
+binded_ext <-
+  binded_ext %>%
+  mutate(CASE=case_when(NUM_VOTAVEL==13 & ANO_ELEICAO == 2002 ~ "OPOSIÇÃO",
+                        NUM_VOTAVEL==13 & ANO_ELEICAO != 2002 ~ "INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO == 2002 ~"INCUMBENTE",
+                        NUM_VOTAVEL==45 & ANO_ELEICAO != 2002 ~"OPOSIÇÃO",
+                        NUM_VOTAVEL==17 ~ "OPOSIÇÃO"))
+
+
+hist_op_br <-
+binded_br %>%
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="OPOSIÇÃO" &
+           SIGLA_UF != "ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                 colour="black",
+                 fill="blue",
+                 binwidth=20) +
+  ggtitle("Oposição (Brasil)")
+
+hist_inc_br <- 
+  binded_br %>%
+    group_by(ANO_ELEICAO) %>%
+  filter(CASE=="INCUMBENTE" &
+           SIGLA_UF != "ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                  colour="black",
+                 fill="orange",
+                  binwidth=20)+
+  ggtitle("Incumbente (Brasil)")
+
+hist_op_ext <-
+  binded_ext %>%
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="OPOSIÇÃO" &
+           SIGLA_UF=="ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                  colour="black",
+                 fill="blue",
+                  binwidth=20) +
+  ggtitle("Oposição (Exterior)")
+
+hist_inc_ext <-
+  binded_ext %>%
+  group_by(ANO_ELEICAO) %>%
+  filter(CASE=="INCUMBENTE" &
+           SIGLA_UF=="ZZ") %>%
+  ggplot()+
+  geom_histogram(aes(x=QTDE_VOTOS),
+                  colour="black",
+                  fill="orange",
+                  binwidth=20) +
+  ggtitle("Incumbente (Exterior)")
+@
+
+<<echo=F, warning=F, message=F>>=
+tabela_1 <- tibble(ANO=c(2002,2006,2010,2014,2018),
+                   PCT_VOTO_INCBR=c(pct_voto_inc2002br,pct_voto_inc2006br,
+                                    pct_voto_inc2010br,pct_voto_inc2014br,
+                                    pct_voto_inc2018br),
+                   PCT_VOTO_OPBR=c(pct_voto_opo2002br,pct_voto_opo2006br,
+                                   pct_voto_opo2010br,pct_voto_opo2014br,pct_voto_opo2018br),
+                   PCT_VOTO_INCEXT=c(pct_voto_inc2002ext,pct_voto_inc2006ext,pct_voto_inc2010ext,pct_voto_inc2014ext, pct_voto_inc2018ext),
+                   PCT_VOTO_OPEXT=c(pct_voto_opo2002ext,pct_voto_opo2006ext,pct_voto_opo2010ext,pct_voto_opo2014ext,pct_voto_opo2018ext),
+                   PCT_VOTO_BRANCO_NULOBR=c(voto_branco2002br + voto_null2002br,
+                                       voto_branco2006br + voto_null2006br,
+                                       voto_branco2010br + voto_null2010br,
+                                       voto_branco2014br + voto_null2014br,
+                                       voto_branco2018br + voto_null2018br),
+                   PCT_VOTO_BRANCONULOEXT = c(voto_branco2002ext + voto_null2002ext,
+                                       voto_branco2006ext + voto_null2006ext,
+                                       voto_branco2010ext + voto_null2010ext,
+                                       voto_branco2014ext + voto_null2014ext,
+                                       voto_branco2018ext + voto_null2018ext))
+
+tabela_1_display <-
+tabela_1 %>% 
+  kable(caption = "Porcentagem de votos no Brasil e Exterior nas eleições presidenciais brasileiras entre 2002-2018",
+        col.names = c("Ano","% voto incumbente(Brasil)", "% de voto oposição (Brasil)", "% de voto incumbente(Exterior)",
+                      "% de voto oposição(Exterior)", "% de voto branco/nulo (Brasil)","% de voto branco/nulo (Exterior)"))
+@
+
+<<echo=F, warning=F, message=F>>=
+estat_br <-
+tabela_1 %>%        summarise(media_votos_incbr=mean(PCT_VOTO_INCBR),                     median_votos_incbr=median(PCT_VOTO_INCBR),
+        sd_voto_incbr=sd(PCT_VOTO_INCBR),
+        media_votos_opbr=mean(PCT_VOTO_OPBR),
+        median_votos_opbr=median(PCT_VOTO_OPBR),
+        sd_voto_opbr=sd(PCT_VOTO_OPBR),
+        media_nullbr=mean(PCT_VOTO_BRANCO_NULOBR),
+        median_nullbr=median(PCT_VOTO_BRANCO_NULOBR),
+        sd_nullbr=sd(PCT_VOTO_BRANCO_NULOBR))
+
+estat_ext <- 
+  tabela_1 %>% 
+  summarise(media_votos_incext=mean(PCT_VOTO_INCEXT),
+            median_votos_incext=median(PCT_VOTO_INCEXT),
+            sd_voto_incext=sd(PCT_VOTO_INCEXT),
+            media_votos_opext=mean(PCT_VOTO_OPEXT),
+            median_votos_opext=median(PCT_VOTO_OPEXT),
+            sd_voto_opext=sd(PCT_VOTO_OPEXT),
+            media_nullext=mean(PCT_VOTO_BRANCONULOEXT),
+            median_nullext=median(PCT_VOTO_BRANCONULOEXT),
+            sd_nullext=sd(PCT_VOTO_BRANCONULOEXT))
+
+media_voto_incbr <- estat_br %>%
+  pull(media_votos_incbr)
+
+media_voto_opbr <- estat_br %>%
+  pull(media_votos_opbr)
+
+media_nullbr <- estat_br %>%
+  pull(media_nullbr)
+
+media_voto_incex <- estat_ext %>%
+  pull(media_votos_incext)
+
+media_voto_opex <-estat_ext %>%
+  pull(media_votos_opext)
+
+media_nullex <- estat_ext %>%
+  pull(media_nullext)
+
+median_voto_incbr <- estat_br %>%
+  pull(median_votos_incbr)
+
+median_voto_opbr <- estat_br %>%
+  pull(median_votos_opbr)
+
+median_nullbr <- estat_br %>%
+  pull(median_nullbr)
+
+median_voto_inex <- estat_ext %>%
+  pull(median_votos_incext)
+
+median_voto_opex <- estat_ext %>%
+  pull(median_votos_opext)
+
+median_nullex <- estat_ext %>%
+  pull(median_nullext)
+
+sd_inbr <- estat_br %>%
+  pull(sd_voto_incbr)
+
+sd_opbr <- estat_br %>%
+  pull(sd_voto_opbr)
+
+sd_nullbr <- estat_br %>%
+  pull(sd_nullbr)
+
+sd_inex <- estat_ext %>%
+  pull(sd_voto_incext)
+
+sd_opex <- estat_ext %>%
+  pull(sd_voto_opext)
+
+sd_nullex <- estat_ext %>%
+  pull(sd_nullext)
+
+
+Tabela_2 <- 
+  tibble(Categoria=c("Voto no Incumbente",
+                     "Voto na Oposição",
+                     "Voto Branco/Nulo"),
+         Media_Brasil=c(media_voto_incbr,
+                 media_voto_opbr,
+                 media_nullbr),
+         Media_Exterior=c(media_voto_incex,
+                          media_voto_opex,
+                          media_nullex),
+         Mediana_Brasil=c(median_voto_incbr,
+                          median_voto_opbr,
+                          median_nullbr),
+         Mediana_Exterior=c(median_voto_inex,
+                            median_voto_opex,
+                            median_nullex),
+         SD_BR=c(sd_inbr,
+                 sd_opbr,
+                 sd_nullbr),
+         SD_EXT=c(sd_inex,
+                  sd_opex,
+                  sd_nullex))
+
+Tabela_2_display <-
+  Tabela_2 %>%
+  kable(caption = "Estatísticas descritivas",
+        col.names = c("Categoria","Média (Brasil) ","Média (Exterior) ",
+                      "Mediana (Brasil) ","Mediana (Exterior) ",
+                      "Desvio Padrão (Brasil) ","Desvio Padrão (Exterior) "))
+
+@
+
+\section*{Resumo}
+
+O objetivo deste trabalho final é utilizar os conteúdos aprendidos durante a disciplina para explorar a relação entre o eleitor brasileiro residente no exterior e o voto na oposição para as eleições presidenciais do período de 2002 à 2018. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação do voto (incumbente ou oposição).
+
+\section{Introdução}
+
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, está relacionado ao voto no Partido dos Trabalhadores e na região Sul-Sudeste nas forças antipetistas (PSDB até 2014 e Bolsonaro em 2018). As desigualdades sócio-econômicas dentro e entre as regiões do país, assim como as políticas de transferência de renda (tais como o Bolsa Família), são apontadas pela literatura como fatores explicativos por essa diferença (Hunter \& Power 2007; Nicolau \& Peixoto, 2007;Zucco, 2008;Braga \& Zolnerkevic 2020). Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia a discussão sobre o voto imigrante esteja bem documentada. 
+
+Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no impacto que os eleitores imigrantes tem no sistema democrático de seu país natal como também nos processos que levaram à extensão dos direitos políticos para a diáspora (Collyer, 2014; Lafleur, 2017; Rhodes \& Harutyunyan, 2010), por outro se tem um foco nas preferências políticas dos cidadãos residentes no exterior e como elas diferem dos eleitores residentes em seu país natal (Fidrmuc \& Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu \& Urbatsch, 2020).
+
+Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo a votar na oposição (Rosca,2021; Turcu \& Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual migraram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc \& Doyle, 2004; Turcu \& Rosca, 2019).
+
+
+A diferença de voto entre o eleitor residente no estrangeiro e no Brasil pode estar relacionada ao fato de que muitas vezes o eleitor imigrante tende a votar na oposição, uma vez que pode ter deixado o país durante um período de dificuldades econômicas associada ao incumbente, o que está relacionado, de certa forma, com a Teoria do Voto Econômico, uma vez que a mesma postula que o eleitor tende a premiar ou não o incumbente tendo em base a performance econômica do mesmo.
+
+\section{Dados Utilizados e Procedimentos de Tratamento}
+
+Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes às eleições presidenciais entre 2002 e 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
+
+O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Município, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos e (X) se o candidato é oposição ou incumbente. 
+
+O banco para os dados referentes às eleições realizadas em solo nacional possui um total de 7.715524 observações (\textit{n}=7.715524) enquanto que o banco referente às eleições realizadas no exterior possui um total de 10.464 observações (\textit={n}=10.464). 
+
+O banco referente às eleições ocorridas no Brasil possui um \textit{n} maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto,espera-se uma certa variabilidade dos dados pelo fato de estarmos lidando com dados do mundo real.
+
+No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes a essas eleições apresentarem os dados do segundo para as eleições ocorridas no exterior.
+
+Com a finalidade de operacionalizar os dados (\textit{i.e.}, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classificá-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao \textit{impeatchment} dois anos antes.
+
+\section{Apresentação e Discussão dos Resultados}
+
+\subsection{Análise das Estatísticas Descritivas}
+
+Com a finalidade de analisar a distribuição da variável Y (a quantidade de votos distribuida para o incumbente e a oposição) analisando a sua frequência relativa, foram realizados quatro histogramas, cada um mostrando a frequência de Y para cada caso (\textit={i.e.}, Voto no Incumbente no Brasil, Voto no Incumbente no Exterior, Voto na Oposição no Brasil e Voto na Oposição no Exterior).
+
+<<>>=
+ggarrange(hist_inc_br,hist_inc_ext,
+          hist_op_br,hist_op_ext,
+          ncol = 2,nrow = 2)
+@
+
+Os histogramas acima apresentados revelam que os dados referentes às quantidade de votos para o incumbente e oposição tanto para o Brasil como para o Exterior são assimétricos à direita, mostrando que se tem uma variabilidade na quantidade de votos em ambas as situações, fazendo com que os dados não estejam concentrados em torno da média.
+
+Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que a média, uma vez que os dados em questão estão assimétricos, o que leva o valor da média a ser influenciado por \textit{outliers} fazendo com que esse valor seja levado para determinada direção se na amostra houver um valor muito maior ou menor do que o restante das observações, o que pode levar a algumas interpretações distorcidas no momento de realizar a comparação. Assim, a média está localizada na direção da assimetria da curva em relação à mediana.
+
+Foram realizados também dois \textit{boxplots}, um para as eleições ocorridas no Brasil e outro para as eleições ocorridas no exterior, com a finalidade de observar o resumo de cinco números importantes no momento de se descrever o centro e a dispersão, sendo eles o Valor Máximo, o Valor Mínimo, o Quartil 1, o Quartil 3 e a média.
+
+<<echo=F, warning=F, message=F>>=
+box_br <-
+binded_br %>%
+  drop_na() %>%
+  ggplot(aes(x=CASE,
+             y=QTDE_VOTOS))+
+  geom_boxplot() +
+  ggtitle("Boxplots para eleições ocorridas no Brasil")
+
+box_ext<-
+binded_ext %>%
+  drop_na() %>%
+  ggplot()+
+  geom_boxplot(aes(x=CASE,
+                   y=QTDE_VOTOS)) + 
+  ggtitle("Boxplots para eleições ocorridas no exterior")
+
+ggarrange(box_br,box_ext,
+          ncol = 2,nrow = 1)
+@
+
+Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50 centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro a votar na oposição.
+
+A presença dos valores atípicos em ambos os \textit{boxplots} se dá pelo fato da distribuição ser assimétrica, como mostrado anteriormente.
+
+Também foi realizada uma tabela de frequência com a porcentagem de votos para incumbente e oposição no Brasil e Exterior para cada ano eleitoral analisado: 
+
+<<results='asis'>>=
+print(tabela_1_display, type="latex")
+@
+
+A tabela acima mostra que, no geral, a porcentagem de votos no Brasil para incumbente e oposição apresentou uma certa diferença até as eleições de 2014. Esse estreitamento na diferença de votos entre oposição e incumbente pode ser um resultado direto dos escandalos de corrupção que abalaram o governo do Partido dos Trabalhadores e dos protestos ocorridos em 2013. 
+
+No que diz respeito ao voto no exterior, nota-se sempre uma diferença notável entre os votos depositados para o incumbente e os votos depositados para a oposição, diferença essa que tende sempre a ser favorável para a oposição.
+
+Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (\textit{i.e.}, mostram como é uma observação típica) e uma medida de dispersão (\textit{i.e.}, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
+
+<<results='asis'>>=
+print(Tabela_2_display, type="latex")
+@
+
+As estatísticas mostram que a porcentagem de votos apresenta uma forte variação devido ao desvio padrão alto em ambos os casos. No caso do voto incumbente se tem um desvio padrão de 8.47 e de 9.18 para o Brasil e Exterior respectivamente e no caso do voto para a oposição se tem um desvio padrão de 8.05 e 8.8 para o Brasil e Exterior respectivamente. Nota-se uma variabilidade ligeiramente maior nos dados referentes ao voto no exterior. Importante ressaltar que a porcentagem de voto branco e nulo apresentam uma variabilidade muito baixa, sendo 1.5 e 1.4 respectivamente, devido a *COMPLETAR*
+
+
+Apesar de que ao analisar o histograma se tenha chegado a conclusão de que o uso da mediana acabaria sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque a média acaba sendo de certa forma influenciada pelo valor dos \textit{outliers}, ao analisar a tabela nota-se que os valores da média e da mediana acabam sendo muito próximo de si (com exceção da média e mediana de votos no incumbente no exterior, que acabam tendo uma distância de relativamente alta, sendo 33.8 e 38.1 respectivamente). 
+
+
+Assim, ao se comparar as médias nota-se que a média de votos no incumbente e na oposição, para as eleições ocorridas em solo brasileiro, tende a ser quase o mesmo valor (46.98 e 46.1 respectivamente), o que indica que não se tem muita diferença na tendência de voto do eleitorado brasileiro residente no próprio país. O mesmo pode ser dito ao olhar a mediana, onde se tem uma distância de aproximadamente três pontos entre o valor para o voto no incumbente e o voto na oposição (48.4 e 45.2 aproximadamente), o que dá a ideia de eleições competitivas com uma ligeira tendência a se premiar o incumbente.
+
+Ao olhar as médias de votos no incumbente e na oposição para os votos de brasileiros residentes no exterior, tem-se uma diferença notável em favor da oposição, tendo uma média de 60.72 em comparação com o incumbente, que possui uma média de 33.86. A tendência em favor da oposição para eleitores brasileiros no exterior se confirma ao analisarmos a mediana. A diferença entre medianas tem uma magnitude muito próxima à diferença entre as duas médias, tendo uma leve diminuição, sendo a mediana para os votos na oposição de valor 57.6 e a mediana para votos no incumbente 38.1.
+
+Devido a essa variabilidade dos dados, como dito na análise do Histograma, tem-se que o uso da mediana acaba sendo uma medida mais apropriada no momento de se comparar essas estatísticas porque a média acaba sendo de certa forma influenciada pelo valor dos \textit{outliers}.
+
+Contudo, tem-se um problema ao fazer somente esta análise. O $X_1$ e o $X_2$ não são exógenos, logo, não se pode concluir um teste e não se pode concluir que são eles que provocam o efeito em $Y$ ou se é outra coisa. Para contornar esse impasse, foi realizado um Teste de Hipótese, que será apresentado nas próximas sessões.
+
+
+\subsection{Modelagem}
+
+
+No que diz respeito à modelagem dos dados, é necessário se ater aos detalhes das variáveis sendo utilizadas.
+
+Pelo fato de que a variável dependente Y ser uma variável binária ("incumbente" ou "oposição"), \textit{i.e.} Comporta-se na lógica de "sucesso" ou "fracasso"(ou, melhor, de 0 ou 1), e estamos interessados nas chances disso ocorrer em uma eleição, podemos modelar o problema usando a Distribuição de Bernoulli.
+
+Desta forma, a probabilidade do eleitor brasileiro no exterior em uma eleição votar na oposição é dada por $\phi_i$ e a probabilidade do eleitor brasileiro votar no incumbente é dada por $1 - \phi_i$. Assim, modela-se o problema nos termos da equação abaixo: 
+
+$$f(Y_i = y_i|\phi_i) = \left\{
+    \begin{array}{cc}
+                \phi_i & \mathrm{se\ } Y_i=1 \\
+                1-\phi_i & \mathrm{se\ } Y_i=0 \\
+        \end{array} 
+    \right.$$
+
+Onde a probabilidade de $Y_i$ (voto brasileiro no exterior) é igual à 1 ("voto na oposição") quando o parâmetro assume o valor de $\phi_i$ e é igual à 0 ("voto no incumbente") quando o parâmetro assume o valor de $1-\phi_i$.
+
+
+\subsection{Teste de Hipótesis}
+
+Com a finalidade de testar a relação foi realizado um Teste de Hipótesis de tipo {\chi}² para cada eleição, uma vez que se trata de duas variáveis categóricas e estamos lidando com proporções.
+O teste segue a lógica abaixo: 
+
+\begin{hyp}[] \label{hyp:a}This is my first hypothesis. \end{hyp}
+ \begin{hyp} \label{hyp:b}This is my second hypothesis. \end{hyp}
+
+
+Primeiramente se procedeu a fazer uma tabela de contingência para cada eleição e em seguida foram realizados os testes com um nível de significância $\alpha$ de 5\%. 
+
+<<echo=F, warning=F, message=F>>=
+con_2002 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(38.1,36.4,74.5),
+                   ESPERADO_INCUMBENTE=c(37.6,36.9,NA),
+                   OPOSICAO=c(57.6,57.6,115.2),
+                   ESPERADO_OPOSICAO=c(58.1,57.1,NA),
+                   TOT=c(95.7,94,189.7)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2002")
+
+con_2006 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(43.9,57.2,101.1),
+                   ESPERADO_INCUMBENTE=c(50.8,50.3,NA),
+                   OPOSICAO=c(51.2,36.8,88),
+                   ESPERADO_OPOSICAO=c(44.3,43.7,NA),
+                   TOT=c(95.1,94,189.1)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2006")
+
+con_2010 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(38.7,52.3,91),
+                   ESPERADO_INCUMBENTE=c(45.8,45.2,NA),
+                   OPOSICAO=c(56,41,97),
+                   ESPERADO_OPOSICAO=c(48.9,48.1,NA),
+                   TOT=c(94.7,93.3,188)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2010")
+
+con_2014 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(21.9,48.4,70.3),
+                   ESPERADO_INCUMBENTE=c(35.4,34.9,NA),
+                   OPOSICAO=c(73.4,45.3,118.7),
+                   ESPERADO_OPOSICAO=c(59.9,58.8,NA),
+                   TOT=c(95.3,93.7,189)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2014")
+
+con_2018 <- tibble(CASE=c('EXT','BR','TOT'),
+                   INCUMBENTE=c(26.7,40.6,67.3),
+                   ESPERADO_INCUMBENTE=c(34,33.3,NA),
+                   OPOSICAO=c(65.5,49.8,115.3),
+                   ESPERADO_OPOSICAO=c(58.2,57.1,NA),
+                   TOT=c(92.2,90.4,182.6)) %>%
+  kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
+        caption = "Tabela de Contingência para o ano de 2018")
+@
+
+<<results='asis'>>=
+print(con_2002, type="latex")
+@
+
+Para o ano de 2002 o teste de \chi² resultou em um valor crítico de aproximadamente 0.02 e um p-valor de aproximadamente 0.99, o que, quando comparado com $\alpha$ faz com que não seja possível rejeitar $H_0$ uma vez que $0.99 > 0.5$.
+
+<<results='asis'>>=
+print(con_2006, type="latex")
+@
+
+Para o ano de 2006 o teste de \chi² resultou em um valor crítico de aproximadamente 4.1 e um p-valor de aproximadamente 0.25, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.25 < 0.5$.
+
+
+<<results='asis'>>=
+print(con_2010, type="latex")
+@
+
+Para o ano de 2010 o teste de \chi² resultou em um valor crítico de aproximadamente 4.34 e um p-valor de aproximadamente 0.22, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.22 < 0.5$.
+
+
+
+<<results='asis'>>=
+print(con_2014, type="latex")
+@
+
+Para o ano de 2014 o teste de \chi² resultou em um valor crítico de aproximadamente 16.6 e um p-valor de aproximadamente 0.0008, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.0008 < 0.5$.
+
+
+<<>>=
+print(con_2018, type="latex")
+@
+
+Para o ano de 2018 o teste de \chi² resultou em um valor crítico de aproximadamente 4.99 e um p-valor de aproximadamente 0.17, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.17 < 0.5$.
+
+Assim, quando comparados os testes de \chi² por ano, nota-se um processo de distinção de preferências eleitorais entre os eleitores residentes no brasil e no exterior que tem início no ano de 2006 e tem seu ápice no ano de 2014 (ano em que essa diferença se faz mais marcante), sendo que no ano de 2002 essa diferença não se verifica, tendo ambos os grupos de eleitores votado preferencialmente na oposição. 
+
+
+\section{Considerações Finais}
+
+
+
+\end{document}
