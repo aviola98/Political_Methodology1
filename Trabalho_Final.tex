@@ -72,30 +72,3 @@ Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que
 
 Foram realizados também dois *boxplots*, um para as eleições ocorridas no Brasil e outro para as eleições ocorridas no exterior, com a finalidade de observar o resumo de cinco números importantes no momento de se descrever o centro e a dispersão, sendo eles o Valor Máximo, o Valor Mínimo, o Quartil 1, o Quartil 3 e a média.
 
-\begin{Schunk}
-\begin{Sinput}
-> box_br <-
-+ binded_br %>%
-+   drop_na() %>%
-+   ggplot(aes(x=CASE,
-+              y=QTDE_VOTOS))+
-+   geom_boxplot() +
-+   ggtitle("Boxplots para eleições ocorridas no Brasil")
-> box_ext<-
-+ binded_ext %>%
-+   drop_na() %>%
-+   ggplot()+
-+   geom_boxplot(aes(x=CASE,
-+                    y=QTDE_VOTOS)) + 
-+   ggtitle("Boxplots para eleições ocorridas no exterior")
-> ggarrange(box_br,box_ext,
-+           ncol = 2,nrow = 1)
-\end{Sinput}
-\end{Schunk}
-
-Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50 centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro a votar na oposição.
-
-A presença dos valores atípicos em ambos os *boxplots* se dá pelo fato da distribuição ser assimétrica, como mostrado anteriormente.
-
-Também foi realizada uma tabela de frequência com a porcentagem de votos para incumbente e oposição no Brasil e Exterior para cada ano eleitoral analisado: 
-
