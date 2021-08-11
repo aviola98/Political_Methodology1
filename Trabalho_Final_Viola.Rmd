@@ -4,7 +4,6 @@ author: "André Viola"
 date: "7/27/2021"
 output:
   pdf_document: default
-  html_document: default
 ---
 
 ```{r, echo=FALSE}
@@ -436,10 +435,8 @@ O objetivo desse trabalho final é utilizar os conteúdos aprendidos durante a d
 
 1.    **Introdução** 
 
-Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As desigualdades socio-econômicas dentro e entre as regiões do país, assim como as políticas de transferência de renda (tais como o Bolsa Família), são apontadas pela literatura como fatores explicativos por essa diferença (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020).
 
-
-Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia a discussão sobre o voto imigrante está bem documentada. 
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, sendo relacionado ao voto no Partido dos Trabalhadores e a região Sul-Sudeste nas forças anti petistas (PSDB até 2014 e Bolsonaro em 2018). As desigualdades socio-econômicas dentro e entre as regiões do país, assim como as políticas de transferência de renda (tais como o Bolsa Família), são apontadas pela literatura como fatores explicativos por essa diferença (Hunter & Power 2007; Nicolau & Peixoto, 2007;Zucco, 2008;Braga & Zolnerkevic 2020). Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia a discussão sobre o voto imigrante está bem documentada. 
 
 Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no impacto que os eleitores imigrantes tem no sistema democrático de seu país natal como também nos processos que levaram à extensão dos direitos políticos para a diaspora (Collyer, 2014; Lafleur, 2017; Rhodes & Harutyunyan, 2010), por outro se tem um foco nas preferências políticas dos cidadãos residentes no exterior e como elas diferem dos eleitores residentes em seu país natal (Fidrmuc & Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu & Urbatsch, 2020).
 
@@ -574,7 +571,7 @@ $$
 H_1: {\text{existe diferença entre votos brasileiros no exterior e votos brasileiros no Brasil}} 
 $$
 
-Primeiramente se procedeu a fazer uma tabela de contingência para cada eleição.
+Primeiramente se procedeu a fazer uma tabela de contingência para cada eleição e em seguida foram realizados os testes com um nível de significância $\alpha$ de 5%. 
 
 ```{r}
 con_2002 <- tibble(CASE=c('EXT','BR','TOT'),
@@ -621,7 +618,40 @@ con_2018 <- tibble(CASE=c('EXT','BR','TOT'),
                    TOT=c(92.2,90.4,182.6)) %>%
   kable(col.names = c("Local","Incumbente","Esperado Incumbente","Oposição","Esperado Oposição","Total"),
         caption = "Tabela de Contingência para o ano de 2018")
-
-
 ```
 
+```{r}
+con_2002
+```
+
+Para o ano de 2002 o teste de $\chi²$ resultou em um valor crítico de aproximadamente 0.02 e um p-valor de aproximadamente 0.99, o que, quando comparado com $\alpha$ faz com que não seja possível rejeitar $H_0$ uma vez que $0.99 > 0.5$.
+
+```{r}
+con_2006
+```
+
+Para o ano de 2006 o teste de $\chi²$ resultou em um valor crítico de aproximadamente 4.1 e um p-valor de aproximadamente 0.25, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.25 < 0.5$.
+
+```{r}
+con_2010
+```
+
+Para o ano de 2010 o teste de $\chi²$ resultou em um valor crítico de aproximadamente 4.34 e um p-valor de aproximadamente 0.22, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.22 < 0.5$.
+
+```{r}
+con_2014
+```
+
+Para o ano de 2014 o teste de $\chi²$ resultou em um valor crítico de aproximadamente 16.6 e um p-valor de aproximadamente 0.0008, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.0008 < 0.5$.
+
+```{r}
+con_2018
+```
+
+Para o ano de 2018 o teste de $\chi²$ resultou em um valor crítico de aproximadamente 4.99 e um p-valor de aproximadamente 0.17, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.17 < 0.5$.
+
+Assim, quando comparados os testes de $\chi²$ por ano, nota-se um processo de distinção de preferências eleitorais entre os eleitores residentes no brasil e no exterior que tem início no ano de 2006 e tem seu ápice no ano de 2014 (ano em que essa diferença se faz mais marcante), sendo que no ano de 2002 essa diferença não se verifica, tendo ambos os grupos de eleitores votado preferencialmente na oposição. 
+
+6.  **Considerações Finais**
+
+Os resultados apresentados nesse Trabalho Final apontam na direção de que se tem um 

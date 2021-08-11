@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage{setspace}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+
+\title{Trabalho Final da Disciplina}
+\author{André Viola}
+
+\usepackage{Sweave}
+\begin{document}
+
+  \onehalfspacing
+\input{Trabalho_Final-concordance}
+\maketitle
+
+
+
+
+
+
+
+
+
+
+
+\section*{Resumo}
+
+O objetivo deste trabalho final é utilizar os conteúdos aprendidos durante a disciplina para explorar a relação entre o eleitor brasileiro residente no exterior e o voto na oposição para as eleições presidenciais do período de 2002 à 2018. A variável independente (X) é o local de residência do eleitor (Brasil ou exterior) e a variável independente (Y) é a orientação do voto (incumbente ou oposição).
+
+\section{Introdução}
+
+Muito se fala, no Brasil, sobre a diferença de votos no âmbito espacial, em especial na diferença de orientação entre as regiões Sul-Sudeste e a região Nordeste. O Nordeste, desde 2006, está relacionado ao voto no Partido dos Trabalhadores e na região Sul-Sudeste nas forças antipetistas (PSDB até 2014 e Bolsonaro em 2018). As desigualdades sócio-econômicas dentro e entre as regiões do país, assim como as políticas de transferência de renda (tais como o Bolsa Família), são apontadas pela literatura como fatores explicativos por essa diferença (Hunter \& Power 2007; Nicolau \& Peixoto, 2007;Zucco, 2008;Braga \& Zolnerkevic 2020). Mas o que se tem a dizer sobre o voto no exterior ? Há também uma diferença de padrão de voto entre os brasileiros no exterior e os que residem no país? Na literatura brasileira este aspecto é pouco explorado, embora na academia a discussão sobre o voto imigrante esteja bem documentada. 
+
+Esse campo de pesquisa tem dois focos principais. Por um lado se tem um foco no impacto que os eleitores imigrantes tem no sistema democrático de seu país natal como também nos processos que levaram à extensão dos direitos políticos para a diáspora (Collyer, 2014; Lafleur, 2017; Rhodes \& Harutyunyan, 2010), por outro se tem um foco nas preferências políticas dos cidadãos residentes no exterior e como elas diferem dos eleitores residentes em seu país natal (Fidrmuc \& Doyle, 2004; Arkilic, 2021; Rosca,2019; Turcu \& Urbatsch, 2020).
+
+Nesse último foco, evidências indicam que o voto imigrante em seu país de origem difere do voto de seus compatriotas, tendendo a votar na oposição (Rosca,2021; Turcu \& Urbantsch, 2020), mas, ao mesmo tempo, sendo afetado de alguma forma pelo modelo político-econômico do país para o qual migraram, causando, desta forma, uma diferença interna do voto imigrante. (Fidrmuc \& Doyle, 2004; Turcu \& Rosca, 2019).
+
+
+A diferença de voto entre o eleitor residente no estrangeiro e no Brasil pode estar relacionada ao fato de que muitas vezes o eleitor imigrante tende a votar na oposição, uma vez que pode ter deixado o país durante um período de dificuldades econômicas associada ao incumbente, o que está relacionado, de certa forma, com a Teoria do Voto Econômico, uma vez que a mesma postula que o eleitor tende a premiar ou não o incumbente tendo em base a performance econômica do mesmo.
+
+\section{Dados Utilizados e Procedimentos de Tratamento}
+
+Nesse trabalho foram utilizados os dados eleitorais disponíveis no Repositório de Dados do Tribunal Superior Eleitoral (TSE) referentes às eleições presidenciais entre 2002 e 2018, onde estão disponíveis tanto os votos realizados no Brasil (registrados sob todas as UF) como os votos realizados no exterior (registrados sob a sigla ZZ) para ambos os turnos.
+
+O banco foi separado em dois, um para os votos em solo brasileiro e outro para os votos no estrangeiro. Ambos possuem as seguintes informações de interesse: (I) Ano da Eleição, (II) Número do Turno, (III) Sigla da UF (no caso de voto no exterior a mesma é ZZ), (IV) Código do Município, (V) Nome do Município, (VI) Número da Zona Eleitoral , (VII) Número Votável, (VIII) Nome do Candidato (IX) quantidade de votos e (X) se o candidato é oposição ou incumbente. 
+
+O banco para os dados referentes às eleições realizadas em solo nacional possui um total de 7.715524 observações (*n*=7.715524) enquanto que o banco referente às eleições realizadas no exterior possui um total de 10.464 observações (*n*=10.464). 
+
+O banco referente às eleições ocorridas no Brasil possui um *n* maior do que o banco referente às eleições ocorridas no exterior pelo fato de que o número de brasileiros residindo no Brasil ser maior do que o número de Brasileiros residindo no exterior, o que leva a adotar procedimentos de padronização no momento da realização do Teste de Hipótese. No entanto,espera-se uma certa variabilidade dos dados pelo fato de estarmos lidando com dados do mundo real.
+
+No tocante à amostra, tem-se a seleção das eleições de 2002 à 2018 pelo fato de que os bancos correspondentes a essas eleições apresentarem os dados do segundo para as eleições ocorridas no exterior.
+
+Com a finalidade de operacionalizar os dados (*i.e.*, transformar os conceitos em variáveis), os votos foram divididos em oposição e incumbente, tendo atenção especial às dinâmicas do ano eleitoral. Assim, em 2002 o PT foi contabilizado como oposição e o PSDB como incumbente, enquanto que nos outros anos o PT foi classificado como incumbente. Especial atenção também foi dada no momento de se adotar essa classificação na eleição de 2018, uma vez que o PT não era o incumbente. Optou-se, porém, por classificá-lo como tal, uma vez que havia vencido na eleição anterior, apesar de ter perdido o posto devido ao *impeachment* dois anos antes.
+
+\section{Apresentação e Discussão dos Resultados}
+
+\subsection{Análise das Estatísticas Descritivas}
+
+Com a finalidade de analisar a distribuição da variável Y (a quantidade de votos distribuida para o incumbente e a oposição) analisando a sua frequência relativa, foram realizados quatro histogramas, cada um mostrando a frequência de Y para cada caso (*i.e.*, Voto no Incumbente no Brasil, Voto no Incumbente no Exterior, Voto na Oposição no Brasil e Voto na Oposição no Exterior).
+
+\begin{Schunk}
+\begin{Sinput}
+> ggarrange(hist_inc_br,hist_inc_ext,
++           hist_op_br,hist_op_ext,
++           ncol = 2,nrow = 2)
+\end{Sinput}
+\end{Schunk}
+
+Os histogramas acima apresentados revelam que os dados referentes às quantidade de votos para o incumbente e oposição tanto para o Brasil como para o Exterior são assimétricos à direita, mostrando que se tem uma variabilidade na quantidade de votos em ambas as situações, fazendo com que os dados não estejam concentrados em torno da média.
+
+Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que a média, uma vez que os dados em questão estão assimétricos, o que leva o valor da média a ser influenciado por *outliers* fazendo com que esse valor seja levado para determinada direção se na amostra houver um valor muito maior ou menor do que o restante das observações, o que pode levar a algumas interpretações distorcidas no momento de realizar a comparação. Assim, a média está localizada na direção da assimetria da curva em relação à mediana.
+
+Foram realizados também dois *boxplots*, um para as eleições ocorridas no Brasil e outro para as eleições ocorridas no exterior, com a finalidade de observar o resumo de cinco números importantes no momento de se descrever o centro e a dispersão, sendo eles o Valor Máximo, o Valor Mínimo, o Quartil 1, o Quartil 3 e a média.
+
+\begin{Schunk}
+\begin{Sinput}
+> box_br <-
++ binded_br %>%
++   drop_na() %>%
++   ggplot(aes(x=CASE,
++              y=QTDE_VOTOS))+
++   geom_boxplot() +
++   ggtitle("Boxplots para eleições ocorridas no Brasil")
+> box_ext<-
++ binded_ext %>%
++   drop_na() %>%
++   ggplot()+
++   geom_boxplot(aes(x=CASE,
++                    y=QTDE_VOTOS)) + 
++   ggtitle("Boxplots para eleições ocorridas no exterior")
+> ggarrange(box_br,box_ext,
++           ncol = 2,nrow = 1)
+\end{Sinput}
+\end{Schunk}
+
+Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50 centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro a votar na oposição.
+
+A presença dos valores atípicos em ambos os *boxplots* se dá pelo fato da distribuição ser assimétrica, como mostrado anteriormente.
+
+Também foi realizada uma tabela de frequência com a porcentagem de votos para incumbente e oposição no Brasil e Exterior para cada ano eleitoral analisado: 
+
