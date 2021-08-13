@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage{setspace}
 \usepackage[portuguese]{babel}
 \usepackage[utf8]{inputenc}
@@ -9,15 +9,15 @@
 \begin{document}
 
   \onehalfspacing
-\SweaveOpts{concordance=TRUE}
 \maketitle
-
+ 
 
 <<echo=F, warning=F, message=F>>=
 library(tidyverse)
 library(knitr)
 library(cowplot)
 library(ggpubr)
+library(xtable)
 @
 
 <<echo=F, warning=F, message=F>>=
@@ -459,11 +459,6 @@ Com a finalidade de operacionalizar os dados (\textit{i.e.}, transformar os conc
 
 Com a finalidade de analisar a distribuição da variável Y (a quantidade de votos distribuida para o incumbente e a oposição) analisando a sua frequência relativa, foram realizados quatro histogramas, cada um mostrando a frequência de Y para cada caso (\textit={i.e.}, Voto no Incumbente no Brasil, Voto no Incumbente no Exterior, Voto na Oposição no Brasil e Voto na Oposição no Exterior).
 
-<<>>=
-ggarrange(hist_inc_br,hist_inc_ext,
-          hist_op_br,hist_op_ext,
-          ncol = 2,nrow = 2)
-@
 
 Os histogramas acima apresentados revelam que os dados referentes às quantidade de votos para o incumbente e oposição tanto para o Brasil como para o Exterior são assimétricos à direita, mostrando que se tem uma variabilidade na quantidade de votos em ambas as situações, fazendo com que os dados não estejam concentrados em torno da média.
 
@@ -471,26 +466,7 @@ Dessa forma, o uso da mediana como medida de posição acaba sendo melhor do que
 
 Foram realizados também dois \textit{boxplots}, um para as eleições ocorridas no Brasil e outro para as eleições ocorridas no exterior, com a finalidade de observar o resumo de cinco números importantes no momento de se descrever o centro e a dispersão, sendo eles o Valor Máximo, o Valor Mínimo, o Quartil 1, o Quartil 3 e a média.
 
-<<echo=F, warning=F, message=F>>=
-box_br <-
-binded_br %>%
-  drop_na() %>%
-  ggplot(aes(x=CASE,
-             y=QTDE_VOTOS))+
-  geom_boxplot() +
-  ggtitle("Boxplots para eleições ocorridas no Brasil")
 
-box_ext<-
-binded_ext %>%
-  drop_na() %>%
-  ggplot()+
-  geom_boxplot(aes(x=CASE,
-                   y=QTDE_VOTOS)) + 
-  ggtitle("Boxplots para eleições ocorridas no exterior")
-
-ggarrange(box_br,box_ext,
-          ncol = 2,nrow = 1)
-@
 
 Para as eleições ocorridas em território brasileiro, as medianas (a linha preta dentro da caixa) para voto no incumbente e na oposição aparecem bem próximas, assim como os 50 centrais da distribuição (os valores que se estendem do quartil superior ao quartil inferior). Para as eleições ocorridas no exterior, os valores referentes à oposição são maiores do que os referentes ao incumbente, sugerindo uma tendência maior do eleitor estrangeiro a votar na oposição.
 
@@ -498,8 +474,8 @@ A presença dos valores atípicos em ambos os \textit{boxplots} se dá pelo fato
 
 Também foi realizada uma tabela de frequência com a porcentagem de votos para incumbente e oposição no Brasil e Exterior para cada ano eleitoral analisado: 
 
-<<results='asis'>>=
-print(tabela_1_display, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(tabela_1_display)
 @
 
 A tabela acima mostra que, no geral, a porcentagem de votos no Brasil para incumbente e oposição apresentou uma certa diferença até as eleições de 2014. Esse estreitamento na diferença de votos entre oposição e incumbente pode ser um resultado direto dos escandalos de corrupção que abalaram o governo do Partido dos Trabalhadores e dos protestos ocorridos em 2013. 
@@ -508,8 +484,8 @@ No que diz respeito ao voto no exterior, nota-se sempre uma diferença notável 
 
 Para seguir na análise, foram calculadas as seguintes estatísticas descritivas a partir da porcentagem de votos por categoria e local de voto: a média, a mediana e os desvios padrões. Ou seja, duas medidas de tendência central (\textit{i.e.}, mostram como é uma observação típica) e uma medida de dispersão (\textit{i.e.}, mostra o quanto os dados estão dispersos em torno do centro). Os resultados estão apresentados na tabela abaixo: 
 
-<<results='asis'>>=
-print(Tabela_2_display, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(Tabela_2_display)
 @
 
 As estatísticas mostram que a porcentagem de votos apresenta uma forte variação devido ao desvio padrão alto em ambos os casos. No caso do voto incumbente se tem um desvio padrão de 8.47 e de 9.18 para o Brasil e Exterior respectivamente e no caso do voto para a oposição se tem um desvio padrão de 8.05 e 8.8 para o Brasil e Exterior respectivamente. Nota-se uma variabilidade ligeiramente maior nos dados referentes ao voto no exterior. Importante ressaltar que a porcentagem de voto branco e nulo apresentam uma variabilidade muito baixa, sendo 1.5 e 1.4 respectivamente, devido a *COMPLETAR*
@@ -604,36 +580,38 @@ con_2018 <- tibble(CASE=c('EXT','BR','TOT'),
         caption = "Tabela de Contingência para o ano de 2018")
 @
 
-<<results='asis'>>=
-print(con_2002, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(con_2002)
 @
 
 Para o ano de 2002 o teste de \chi² resultou em um valor crítico de aproximadamente 0.02 e um p-valor de aproximadamente 0.99, o que, quando comparado com $\alpha$ faz com que não seja possível rejeitar $H_0$ uma vez que $0.99 > 0.5$.
 
-<<results='asis'>>=
-print(con_2006, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(con_2006)
 @
+
 
 Para o ano de 2006 o teste de \chi² resultou em um valor crítico de aproximadamente 4.1 e um p-valor de aproximadamente 0.25, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.25 < 0.5$.
 
 
-<<results='asis'>>=
-print(con_2010, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(con_2010)
 @
+
 
 Para o ano de 2010 o teste de \chi² resultou em um valor crítico de aproximadamente 4.34 e um p-valor de aproximadamente 0.22, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.22 < 0.5$.
 
 
 
-<<results='asis'>>=
-print(con_2014, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(con_2014)
 @
 
 Para o ano de 2014 o teste de \chi² resultou em um valor crítico de aproximadamente 16.6 e um p-valor de aproximadamente 0.0008, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.0008 < 0.5$.
 
 
-<<>>=
-print(con_2018, type="latex")
+<<echo=FALSE,results=tex>>=
+xtable(con_2018)
 @
 
 Para o ano de 2018 o teste de \chi² resultou em um valor crítico de aproximadamente 4.99 e um p-valor de aproximadamente 0.17, o que, quando comparado com $\alpha$ faz com que $H_0$ seja rejeitada uma vez que $0.17 < 0.5$.
@@ -643,6 +621,6 @@ Assim, quando comparados os testes de \chi² por ano, nota-se um processo de dis
 
 \section{Considerações Finais}
 
-
+Os resultados apresentados nesse Trabalho Final apontam na direção de que se tem um distanciamento, em termos de direcionamento de voto, entre os eleitores brasileiros residentes no Brasil e os residentes no exterior. Essa diferença começa a surgir a partir das eleições de 2006 e se acentua em 2014. Todavia, não foram checadas outras variáveis que poderiam tornar essa correlação espúria, como por exemplo a possibilidade de que essa diferença seja devido à diferenças econômicas dos países em que os eleitores residem (\textit{i.e.}, eleitores brasileiros residentes em um país de IDH alto podem tender a votar mais na oposição do que eleitores brasileiros residentes em um país de IDH baixo), assim, os resultados desse trabalho não são conclusivos.
 
 \end{document}
